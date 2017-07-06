@@ -1,0 +1,35 @@
+* {
+    border: 1px solid red;
+}
+
+.missing-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.ghost-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#ghost-image-caption {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: bold;
+}
+
+#missing-ghost-image {
+    width: 400px;
+    height: 400px;
+}
+
+#missing-error-message {
+    color: #fff;
+    text-shadow: 1px 1px gray;
+    font-size: 24px;
+    font-weight: bold;
+}
