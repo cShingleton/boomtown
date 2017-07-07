@@ -6,12 +6,13 @@ import Moment from 'moment';
 import './styles.css';
 
 const ItemCard = ({ itemData }) => (
-    <div className="item-card">
+    <div className="item-card-wrapper">
         <Card id={itemData.id}>
             <CardMedia overlay={<CardTitle title={itemData.available} />}>
                 <img src={itemData.imageUrl} alt="" />
             </CardMedia>
             <CardHeader
+                className={'itemcard-header'}
                 title={itemData.itemOwner.fullName}
                 subtitle={Moment.unix(itemData.createdOn).fromNow()}
                 avatar={<Gravatar email={itemData.itemOwner.email} />}
@@ -21,7 +22,7 @@ const ItemCard = ({ itemData }) => (
                 {itemData.description}
             </CardText>
             <CardActions>
-                <FlatButton label="Borrow" />
+                <FlatButton label="Borrow" secondary={true} />
             </CardActions>
         </Card>
     </div>

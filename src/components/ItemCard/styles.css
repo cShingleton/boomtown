@@ -1,6 +1,20 @@
-.item-card {
-    width: 40%;
-    height: auto;
-    margin: 1rem;
+.itemcard-header > img {
+    border-radius: 50%;
 }
 
+.item-card-wrapper {
+    padding: 1%;
+    width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+    .item-card-wrapper {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+    .item-card-wrapper {
+        width: 33%;
+    }
+}

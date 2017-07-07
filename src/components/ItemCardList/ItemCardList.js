@@ -4,7 +4,7 @@ import ItemCard from '../ItemCard/';
 import './styles.css';
 
 const ItemCardList = ({ itemsData }) => (
-    <div className="items-wrapper">
+    <div className="itemCardList-wrapper">
         <Masonry>
             {itemsData.map(item =>
                 (<ItemCard itemData={item} />)

@@ -11,7 +11,7 @@ const Layout = ({ children }) => (
         <div className="appContent">
             {children}
         </div>
-        {/* And a footer here, but not on the login route... */}
+            {/*// import footer component here*/}
     </div>
 );
 

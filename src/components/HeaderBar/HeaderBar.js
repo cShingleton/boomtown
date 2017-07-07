@@ -14,7 +14,13 @@ const HeaderBar = () => (
                     <SelectField
                         floatingLabelText="Filter By Tag"
                     >
-                        <MenuItem value={1} primaryText="Never Works" />
+                        <MenuItem value={1} primaryText="Electronics" />
+                        <MenuItem value={2} primaryText="Household Items" />
+                        <MenuItem value={3} primaryText="Musical Instruments" />
+                        <MenuItem value={4} primaryText="Physical Media" />
+                        <MenuItem value={5} primaryText="Recreational Equipment" />
+                        <MenuItem value={6} primaryText="Sporting Goods" />
+                        <MenuItem value={7} primaryText="Tools" />
                     </SelectField>
                 </div>
             </div>

@@ -10,9 +10,11 @@ export default getMuiTheme({
         textColor: blueGrey900,
         alternateTextColor: white,
         primary1Color: lightBlue200,
+        secondary1Color: blueGrey900,
         accent1Color: blueGrey900
     },
     appBar: {
-        color: white
+        color: white,
+        height: 60
     }
 });
