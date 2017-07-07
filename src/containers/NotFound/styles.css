@@ -1,7 +1,3 @@
-* {
-    border: 1px solid red;
-}
-
 .missing-wrapper {
     display: flex;
     flex-direction: column;

@@ -1,8 +1,8 @@
 import React from 'react';
-import './styles.css';
+import ItemCardList from '../../components/ItemCardList/';
 
-const Items = () => (
-    <h1>All the items</h1>
+const Items = ({ itemsData }) => ( 
+    <ItemCardList itemsData={itemsData} />
 );
 
 export default Items;

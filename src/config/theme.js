@@ -11,5 +11,8 @@ export default getMuiTheme({
         alternateTextColor: white,
         primary1Color: lightBlue200,
         accent1Color: blueGrey900
+    },
+    appBar: {
+        color: white
     }
 });
