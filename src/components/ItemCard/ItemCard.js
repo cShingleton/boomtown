@@ -7,8 +7,8 @@ import './styles.css';
 
 const ItemCard = ({ itemData }) => (
     <div className="item-card-wrapper">
-        <Card id={itemData.id}>
-            <CardMedia overlay={<CardTitle title={itemData.available} />}>
+        <Card key={itemData.id}>
+            <CardMedia>{/* overlay={<CardTitle title={itemData.available}*/}
                 <img src={itemData.imageUrl} alt="" />
             </CardMedia>
             <CardHeader
@@ -22,7 +22,7 @@ const ItemCard = ({ itemData }) => (
                 {itemData.description}
             </CardText>
             <CardActions>
-                <FlatButton label="Borrow" secondary={true} />
+                <FlatButton label="Borrow" />
             </CardActions>
         </Card>
     </div>

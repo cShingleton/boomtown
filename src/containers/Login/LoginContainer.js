@@ -3,10 +3,10 @@ import Login from './Login';
 
 class LoginContainer extends Component {
 
-    static propTypes = {
-    };
+    // static propTypes = {
+    // };
 
-    login = () => {
+    Login = () => {
         console.log('You clicked the login button.');
     }
 

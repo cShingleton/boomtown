@@ -16,5 +16,13 @@ export default getMuiTheme({
     appBar: {
         color: white,
         height: 60
+    },
+    flatButton: {
+        color: blueGrey900,
+        textColor: white
+    },
+    raisedButton: {
+        primary1Color: lightBlue200,
+        secondary1Color: blueGrey900
     }
 });

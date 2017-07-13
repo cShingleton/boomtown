@@ -28,8 +28,8 @@ const HeaderBar = () => (
     >
         <div>
             <div className="headerbuttonwrapper">
-                <RaisedButton className="headerbar-btns" label="My Profile" />
-                <RaisedButton className="headerbar-btns" label="Log Out" />
+                <RaisedButton className="headerbar-btns" primary={true} label="My Profile" />
+                <RaisedButton className="headerbar-btns" secondary={true} label="Log Out" />
             </div>
         </div>
     </AppBar>
