@@ -1,9 +1,12 @@
 import React from 'react';
 import './styles.css';
 
-const Profile = ({ matchUrl }) => (
+// matchUrl
+
+const Profile = ({ userData }) => (
     <div>
-        <h2>Hi {matchUrl.id}!</h2>
+        <h2>Hi {userData.fullName}</h2>
+        <p>Your email is {userData.email}</p>
     </div>
 );
 
