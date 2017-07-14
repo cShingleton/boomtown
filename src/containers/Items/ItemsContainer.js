@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Items from './Items';
 import Loader from '../../components/Loader';
-import { fetchAndRenderItems } from '../../redux/actions';
+import { fetchAndRenderItems } from '../../redux/modules/items';
 
 class ItemsContainer extends Component {
 
@@ -24,3 +24,5 @@ function mapStateFromProps(state) {
 }
 
 export default connect(mapStateFromProps)(ItemsContainer);
+
+// ADD PROP TYPE VALIDATION HERE !

@@ -1,13 +1,11 @@
-import { applyMiddleware, createStore, combineReducers } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import { ItemRenderer } from './reducer';
+import Reducers from './combine-reducers';
 
 
 export default createStore(
-    combineReducers({
-        items: ItemRenderer
-    }),
+   Reducers,
     applyMiddleware(
         logger,
         thunk

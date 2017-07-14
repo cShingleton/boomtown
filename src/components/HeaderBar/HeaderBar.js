@@ -12,6 +12,7 @@ const HeaderBar = () => (
                 <a href="/"><img className="headerbar-logo" src={logo} alt="boomtown logo" /></a>
                 <div className="header-filter">
                     <SelectField
+                        multiple={true}
                         floatingLabelText="Filter By Tag"
                     >
                         <MenuItem value={1} primaryText="Electronics" />

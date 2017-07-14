@@ -23,8 +23,10 @@ class ProfileContainer extends Component {
                         userData: user,
                         loading: false
                     });
-                }).catch(err => console.log(err));
+                }).catch(err => console.log(err)); 
+                //add my notfound page and update state to undefined 
     }
+    //redirect router 
 
     render() {
         if (this.state.loading) return <Loader />;
