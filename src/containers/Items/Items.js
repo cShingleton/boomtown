@@ -1,7 +1,7 @@
 import React from 'react';
 import ItemCardList from '../../components/ItemCardList/';
 
-const Items = ({ itemsData }) => ( 
+const Items = ({ itemsData }) => (
     <ItemCardList itemsData={itemsData} />
 );
 

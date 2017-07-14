@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Loader from '../../components/Loader/';
 import Profile from './Profile';
+import NotFound from '../NotFound/';
 
 class ProfileContainer extends Component {
     constructor() {
@@ -13,18 +14,13 @@ class ProfileContainer extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3001/users')
+        fetch(`http://localhost:3001/users/${this.props.match.params.id}`)
                 .then(response => response.json())
                 .then(json => {
-                    const users = json;
-                    const matchedId = this.props.match.params.id;
-
-                    const soughtUser = users.filter((obj) => {
-                        return obj.id === matchedId;
-                    });
+                    const user = json;
 
                     this.setState({
-                        userData: soughtUser[0],
+                        userData: user,
                         loading: false
                     });
                 }).catch(err => console.log(err));
@@ -32,6 +28,7 @@ class ProfileContainer extends Component {
 
     render() {
         if (this.state.loading) return <Loader />;
+        if (this.state.userData === undefined) return <NotFound />;
         return <Profile userData={this.state.userData} />;
         // matchUrl={this.props.match.params}
     }

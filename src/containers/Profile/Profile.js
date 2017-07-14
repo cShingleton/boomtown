@@ -4,7 +4,7 @@ import './styles.css';
 // matchUrl
 
 const Profile = ({ userData }) => (
-    <div>
+    <div className="profile">
         <h2>Hi {userData.fullName}</h2>
         <p>Your email is {userData.email}</p>
     </div>
