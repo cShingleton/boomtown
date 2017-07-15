@@ -29,12 +29,14 @@ const ItemCard = ({ itemData }) => (
             >
                 <img src={itemData.imageUrl} alt="" />
             </CardMedia>
-            <CardHeader
-                className={'itemcard-header'}
-                title={itemData.itemOwner.fullName}
-                subtitle={Moment.unix(itemData.createdOn).fromNow()}
-                avatar={<Gravatar email={itemData.itemOwner.email} />}
-            />
+            <a href={`/profile/${itemData.itemOwner.id}`}>
+                <CardHeader
+                    className={'itemcard-header'}
+                    title={itemData.itemOwner.fullName}
+                    subtitle={Moment.unix(itemData.createdOn).fromNow()}
+                    avatar={<Gravatar email={itemData.itemOwner.email} />}
+                />
+            </a>
             <CardTitle title={itemData.title} subtitle={itemData.tags} />
             <CardText>
                 {itemData.description}
