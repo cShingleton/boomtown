@@ -1,5 +1,14 @@
-/* .profile {
+  .profile-wrapper > :first-child > :first-child {
     display: flex;
-    flex-flow: row wrap;
-    width: 500px;
-} */
+    flex-direction: row;
+    justify-content: space-between;
+    width: 700px;
+} 
+
+.profile-avatar > img {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+}
+
+

@@ -4,19 +4,23 @@ import Loader from '../../components/Loader/';
 import Profile from './Profile';
 import { fetchAndRenderProfile } from '../../redux/modules/profile';
 import { fetchAndRenderItems } from '../../redux/modules/items';
+import Items from '../../containers/Items/Items';
 
 class ProfileContainer extends Component {
 
     componentDidMount() {
         this.props.dispatch(fetchAndRenderProfile(this.props.match.params.id));
-        this.props.dispatch(fetchAndRenderItems());
-        
-        
+        this.props.dispatch(fetchAndRenderItems(this.props.match.params.id));
     }
 
     render() {
         if (this.props.loading) return <Loader />;
-        return <Profile userData={this.props.userData} itemsData={this.props.itemsData} />;
+        return (
+            <div>
+                <Profile userData={this.props.userData} itemsData={this.props.itemsData} />
+                <Items itemsData={this.props.specificUserItems} />
+            </div>
+        );
     }
 }
 
@@ -24,7 +28,8 @@ function mapStateFromProps(state) {
     return {
         loading: state.profile.loading,
         userData: state.profile.profileData,
-        itemsData: state.items.itemsData
+        itemsData: state.items.itemsData,
+        specificUserItems: state.items.specificUserItems
     };
 }
 

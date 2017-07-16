@@ -35,14 +35,5 @@ export function fetchAndRenderProfile(url) {
                     const user = json;
                     dispatch(renderUserProfileData(user));
                 });
-
-                // add my notfound page and update state to undefined
-                   // only use it fetch a user
-                   // in the profilecontainer dispatch two async creators
-                //    1. for grabbing items,
-                //    2. for grabbing userinfo
-                //    3. filter out items don't belong
-                //    4. dispatch and info will be aviable in the StorageEvent
-                //    5. filter the data in the store using a helper MSInputMethodContext
     };
 }

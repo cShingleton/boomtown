@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card } from 'material-ui/Card';
+import { Card, CardTitle, CardHeader } from 'material-ui/Card';
+import Gravatar from 'react-gravatar';
 import './styles.css';
 
 const retrieveBorrowedNum = (userData, itemsData) => {
@@ -12,7 +13,7 @@ const retrieveSharedNum = (userData, itemsData) => {
     return shared.length;
 };
 
-const retrieveCurrentlyBorrowing = ( userData, itemsData ) => {
+const retrieveCurrentlyBorrowing = (userData, itemsData) => {
     const borrowed = itemsData.filter(item => userData.id === item.borrower);
     return borrowed.map(item => {
         return (
@@ -22,25 +23,38 @@ const retrieveCurrentlyBorrowing = ( userData, itemsData ) => {
 };
 
 const Profile = ({ userData, itemsData }) => (
-    <div className="profile">
+    <div className="profile-wrapper">
         <Card>
             <div className="item-status-info">
-                <h2>{userData.fullName}</h2>
-                <p>{userData.bio}</p>
+                <CardTitle
+                    title={userData.fullName}
+                    subtitle={userData.bio}
+                />
                 <div>
-                    <h3>Currently borrowing:</h3>
-                    <ul>
-                        {retrieveCurrentlyBorrowing(userData, itemsData)}
-                    </ul>
+                    <CardTitle
+                        title={'Currently borrowing:'}
+                        subtitle={
+                            <ul>
+                                {retrieveCurrentlyBorrowing(userData, itemsData)}
+                            </ul>
+                        }
+                    />
                 </div>
             </div>
-            <div className="profile-details">
-                <div className="share-stats">
-                    <p><span>{retrieveSharedNum(userData, itemsData)}</span> Items Shared</p>
-                    <p><span>{retrieveBorrowedNum(userData, itemsData)}</span> Items Borrowed</p>
-                </div>
-                <img src="" alt="" />
+            <div className="share-stats">
+                <CardTitle
+                    title={retrieveSharedNum(userData, itemsData)}
+                    subtitle={'Items Shared'}
+                />
+                <CardTitle
+                    title={retrieveBorrowedNum(userData, itemsData)}
+                    subtitle={'Items Borrowed'}
+                />
             </div>
+            <CardHeader
+                avatar={<Gravatar email={userData.email} />}
+                className={'profile-avatar'}
+            />
         </Card>
     </div>
 );

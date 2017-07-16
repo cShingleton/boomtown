@@ -6,7 +6,9 @@ import './styles.css';
 const Layout = ({ children }) => (
     <div className="appContentWrapper">
         <div className="appHeader">
-            <HeaderBar />
+            {(window.location.pathname === '/login' || window.location.pathname === '/login/') ?
+                 null : <HeaderBar />
+            }
         </div>
         <div className="appContent">
             {children}
