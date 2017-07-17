@@ -29,7 +29,7 @@ const ItemCard = ({ itemData }) => (
             >
                 <img src={itemData.imageUrl} alt="" />
             </CardMedia>
-            <a href={`/profile/${itemData.itemOwner.id}`}>
+            <a target={'_self'} href={`/profile/${itemData.itemOwner.id}`}>
                 <CardHeader
                     className={'itemcard-header'}
                     title={itemData.itemOwner.fullName}
