@@ -12,14 +12,16 @@ class ItemsContainer extends Component {
 
     render() {
         if (this.props.loading) return <Loader />;
-        return <Items itemsData={this.props.itemsData} />;
+        if (!this.props.filterValues) return <Items itemsData={this.props.itemsData} />;
+        return <Items itemsData={this.props.filterValues} />;
     }
 }
 
 function mapStateFromProps(state) {
     return {
         loading: state.items.loading,
-        itemsData: state.items.itemsData
+        itemsData: state.items.itemsData,
+        filterValues: state.items.filterValues
     };
 }
 

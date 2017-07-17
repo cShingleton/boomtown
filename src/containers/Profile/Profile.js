@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardTitle, CardHeader } from 'material-ui/Card';
+import { Card, CardTitle } from 'material-ui/Card';
 import Gravatar from 'react-gravatar';
 import './styles.css';
 
@@ -23,7 +23,7 @@ const retrieveCurrentlyBorrowing = (userData, itemsData) => {
 };
 
 const Profile = ({ userData, itemsData }) => (
-    <div className="profile-wrapper">
+    <div className="card-wrapper">
         <Card>
             <div className="item-status-info">
                 <CardTitle
@@ -51,10 +51,9 @@ const Profile = ({ userData, itemsData }) => (
                     subtitle={'Items Borrowed'}
                 />
             </div>
-            <CardHeader
-                avatar={<Gravatar email={userData.email} />}
-                className={'profile-avatar'}
-            />
+            <div className="profile-img-holder">
+                <Gravatar email={userData.email} className="profile-avatar" size={180} />
+            </div>
         </Card>
     </div>
 );

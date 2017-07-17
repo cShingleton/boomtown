@@ -5,6 +5,7 @@ import Profile from './Profile';
 import { fetchAndRenderProfile } from '../../redux/modules/profile';
 import { fetchAndRenderItems } from '../../redux/modules/items';
 import Items from '../../containers/Items/Items';
+import './styles.css';
 
 class ProfileContainer extends Component {
 
@@ -16,7 +17,7 @@ class ProfileContainer extends Component {
     render() {
         if (this.props.loading) return <Loader />;
         return (
-            <div>
+            <div className="profile-wrapper">
                 <Profile userData={this.props.userData} itemsData={this.props.itemsData} />
                 <Items itemsData={this.props.specificUserItems} />
             </div>

@@ -1,14 +1,28 @@
-  .profile-wrapper > :first-child > :first-child {
+.profile-wrapper {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-wrapper > :first-child > :first-child {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 700px;
-} 
+    justify-content: space-around;
+    width: 80%;
+    margin: 2rem;
+}
 
-.profile-avatar > img {
-    width: 125px;
-    height: 125px;
+.profile-img-holder > img {
     border-radius: 50%;
 }
 
+.profile-img-holder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: none;
+    max-width: 100%;
+}
 

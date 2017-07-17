@@ -1,6 +1,7 @@
 import React from 'react';
-import { AppBar, RaisedButton, SelectField, MenuItem } from 'material-ui';
+import { AppBar, RaisedButton } from 'material-ui';
 import logo from '../../images/boomtown-logo.svg';
+import FilterField from '../../containers/FilterField/';
 import './styles.css';
 
 const HeaderBar = () => (
@@ -12,18 +13,7 @@ const HeaderBar = () => (
                 <a href="/"><img className="headerbar-logo" src={logo} alt="boomtown logo" /></a>
                 <div className="header-filter">
                     {(window.location.pathname === '/') ?
-                        <SelectField
-                            multiple={true}
-                            floatingLabelText="Filter By Tag"
-                        >
-                            <MenuItem value={1} primaryText="Electronics" />
-                            <MenuItem value={2} primaryText="Household Items" />
-                            <MenuItem value={3} primaryText="Musical Instruments" />
-                            <MenuItem value={4} primaryText="Physical Media" />
-                            <MenuItem value={5} primaryText="Recreational Equipment" />
-                            <MenuItem value={6} primaryText="Sporting Goods" />
-                            <MenuItem value={7} primaryText="Tools" />
-                        </SelectField> : null
+                        <FilterField /> : null
                     }
                 </div>
             </div>
