@@ -37,7 +37,10 @@ const ItemCard = ({ itemData }) => (
                     avatar={<Gravatar email={itemData.itemOwner.email} />}
                 />
             </a>
-            <CardTitle title={itemData.title} subtitle={itemData.tags} />
+            <CardTitle
+                title={itemData.title}
+                subtitle={itemData.tags.join(' - ')}
+            />
             <CardText>
                 {itemData.description}
             </CardText>

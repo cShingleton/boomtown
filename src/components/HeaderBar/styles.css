@@ -13,10 +13,12 @@
 
 .title-wrapper a {
     line-height: 1;
+    margin: 1% 0;
 }
 
 .header-filter {
     margin-left: 2rem;
+    display: flex;
 }
 
 .headerbuttonwrapper {

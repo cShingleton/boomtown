@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { AppBar, RaisedButton } from 'material-ui';
 import logo from '../../images/boomtown-logo.svg';
-import FilterField from '../../containers/FilterField/';
+import FilterField from '../../containers/FilterField';
+import { updateItemsFilter } from '../../redux/modules/items';
 import './styles.css';
 
-const HeaderBar = () => (
+const HeaderBar = ({ itemFilters }) => (
     <AppBar
         showMenuIconButton={false}
         className={'headerbar'}
@@ -13,7 +15,10 @@ const HeaderBar = () => (
                 <a href="/"><img className="headerbar-logo" src={logo} alt="boomtown logo" /></a>
                 <div className="header-filter">
                     {(window.location.pathname === '/') ?
-                        <FilterField /> : null
+                        <FilterField
+                            selectValues={itemFilters}
+                            onChangeAction={updateItemsFilter}
+                        /> : null
                     }
                 </div>
             </div>
@@ -28,4 +33,8 @@ const HeaderBar = () => (
     </AppBar>
 );
 
-export default HeaderBar;
+const mapStateFromProps = state => ({
+    itemFilters: state.items.itemFilters
+});
+
+export default connect(mapStateFromProps)(HeaderBar);

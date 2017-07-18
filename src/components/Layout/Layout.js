@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import HeaderBar from '../HeaderBar';
 import './styles.css';
 
+// TODO: change window.location to use React Router
 const Layout = ({ children }) => (
     <div className="appContentWrapper">
         <div className="appHeader">
@@ -13,7 +14,7 @@ const Layout = ({ children }) => (
         <div className="appContent">
             {children}
         </div>
-            {/*// import footer component here*/}
+        {/* // import footer component here*/}
     </div>
 );
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
+import PropTypes from 'prop-types';
 import Gravatar from 'react-gravatar';
 import './styles.css';
 
@@ -15,11 +16,7 @@ const retrieveSharedNum = (userData, itemsData) => {
 
 const retrieveCurrentlyBorrowing = (userData, itemsData) => {
     const borrowed = itemsData.filter(item => userData.id === item.borrower);
-    return borrowed.map(item => {
-        return (
-            <li>{item.title} from {item.itemOwner.fullName}</li>
-        );
-    });
+    return borrowed.map(item => <li>{item.title} from {item.itemOwner.fullName}</li>);
 };
 
 const Profile = ({ userData, itemsData }) => (
@@ -59,3 +56,8 @@ const Profile = ({ userData, itemsData }) => (
 );
 
 export default Profile;
+
+Profile.propTypes = {
+    userData: PropTypes.objectOf(PropTypes.string).isRequired,
+    itemsData: PropTypes.arrayOf(PropTypes.object).isRequired
+};

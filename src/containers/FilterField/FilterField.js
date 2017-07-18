@@ -1,55 +1,37 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { SelectField, MenuItem } from 'material-ui';
+import PropTypes from 'prop-types';
 
-function toggleFiltering(itemTag, appliedTags, applyFiltering, removeFiltering) {
-    if (appliedTags === undefined || appliedTags.indexOf(itemTag) === -1) {
-        applyFiltering(itemTag, appliedTags);
-    } else if (appliedTags.indexOf(itemTag) > -1) {
-        removeFiltering(itemTag, appliedTags);
-    }
-}
+const FilterField = ({ selectValues, dispatch, onChangeAction }) => {
+    const tags = ['Electronics', 'Household Items', 'Musical Instruments', 'Sporting Goods',
+        'Recreational Equipment', 'Physical Media', 'Tools'];
 
-const FilterField = ({ applyFiltering, removeFiltering, appliedTags }) => (
-    <SelectField
-        multiple={true}
-        floatingLabelText="Filter By Tag"
-    >
-        <MenuItem
-            value={1}
-            primaryText="Electronics"
-            onClick={() => toggleFiltering('Electronics', appliedTags, applyFiltering, removeFiltering)}
-        />
-        <MenuItem
-            value={2}
-            primaryText="Household Items"
-            onClick={() => toggleFiltering('Household Items', appliedTags, applyFiltering, removeFiltering)}
-        />
-        <MenuItem
-            value={3} 
-            primaryText="Musical Instruments" 
-            onClick={() => toggleFiltering('Musical Instruments', appliedTags, applyFiltering, removeFiltering)} 
-        />
-        <MenuItem
-            value={4} 
-            primaryText="Physical Media" 
-            onClick={() => toggleFiltering('Physical Media', appliedTags, applyFiltering, removeFiltering)} 
-        />
-        <MenuItem
-            value={5}
-            primaryText="Recreational Equipment" 
-            onClick={() => toggleFiltering('Recreational Equipment', appliedTags, applyFiltering, removeFiltering)} 
-        />
-        <MenuItem
-            value={6}
-            primaryText="Sporting Goods" 
-            onClick={() => toggleFiltering('Sporting Goods', appliedTags, applyFiltering, removeFiltering)} 
-        />
-        <MenuItem
-            value={7} 
-            primaryText="Tools"
-            onClick={() => toggleFiltering('Tools', appliedTags, applyFiltering, removeFiltering)} 
-        />
-    </SelectField>
-);
+    return (
+        <SelectField
+            multiple
+            hintText={'Filter By Tag'}
+            value={selectValues}
+            onChange={(event, index, values) => dispatch(onChangeAction(values, selectValues))}
+        >
+            {tags.map(tag => (
+                <MenuItem
+                    key={tag}
+                    insetChildren
+                    checked={selectValues && selectValues.includes(tag)}
+                    value={tag}
+                    primaryText={tag}
+                />
+            ))}
+        </SelectField>
+    );
+};
 
-export default FilterField;
+
+export default connect()(FilterField);
+
+FilterField.propTypes = {
+    selectValues: PropTypes.arrayOf(PropTypes.string).isRequired,
+    dispatch: PropTypes.func.isRequired,
+    onChangeAction: PropTypes.func.isRequired,
+};
