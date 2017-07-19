@@ -1,0 +1,1 @@
+DONE - 1. Change window location path conditional to use react routers params in HeaderBar

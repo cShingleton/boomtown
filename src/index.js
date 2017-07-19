@@ -1,10 +1,12 @@
 // absolute imports
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+// import { BrowserRouter as Router } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'react-redux';
+import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'react-router-redux';
 
 // relative imports
 import Routes from './routes/';
@@ -17,14 +19,16 @@ import Layout from './components/Layout';
 
 injectTapEventPlugin();
 
+export const history = createHistory();
+
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
         <Provider store={store}>
-            <Router>
+            <ConnectedRouter history={history}>
                 <Layout>
                     <Routes />
                 </Layout>
-            </Router>
+            </ConnectedRouter>
         </Provider>
     </MuiThemeProvider>
 
