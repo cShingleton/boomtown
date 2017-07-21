@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import HeaderBar from '../HeaderBar';
+import Footer from '../Footer';
 import './styles.css';
 
 // TODO: change window.location to use React Router
@@ -15,7 +16,9 @@ const Layout = ({ children, pathname }) => (
         <div className="appContent">
             {children}
         </div>
-        {/* // import footer component here*/}
+        {(pathname === '/login' || pathname === '/login/') ?
+                 null : <Footer />
+            }
     </div>
 );
 

@@ -53,7 +53,6 @@ const fetchItems = gql`
     }
 `;
 
-
 function mapStateFromProps(state) {
     return {
         // loading: state.items.loading,

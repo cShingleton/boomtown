@@ -3,6 +3,8 @@ import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'm
 import FlatButton from 'material-ui/FlatButton';
 import Gravatar from 'react-gravatar';
 import Moment from 'moment';
+import PropTypes from 'prop-types';
+
 import './styles.css';
 
 const checkBorrower = ({ itemData }) => {
@@ -52,3 +54,21 @@ const ItemCard = ({ itemData }) => (
 );
 
 export default ItemCard;
+
+ItemCard.propTypes = {
+    itemData: PropTypes.shape({
+        available: PropTypes.bool.isRequired,
+        borrower: PropTypes.objectOf(PropTypes.string),
+        createdOn: PropTypes.number.isRequired,
+        description: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        imageUrl: PropTypes.string.isRequired,
+        itemOwner: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            fullName: PropTypes.string.isRequired,
+            email: PropTypes.string.isRequired
+        }).isRequired,
+        tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+        title: PropTypes.string.isRequired
+    }).isRequired
+};
