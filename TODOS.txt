@@ -1,1 +1,9 @@
-DONE - 1. Change window location path conditional to use react routers params in HeaderBar
+TO-DO:
+1. Finish Proptype validation across the app
+    1.1. Break up Proptype validation in ItemsContainer into a shape for itemsData
+2. Assign each item a unique id at ItemCardList
+3. Make a separate queries file for GraphQl queries and import them as consts into each component.
+
+
+COMPLETED:
+1. Change window location path conditional to use react routers params in HeaderBar

@@ -10,7 +10,7 @@ const checkBorrower = ({ itemData }) => {
     const simulID = 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2'; // Simulated user - Mandi
     if (itemData.borrower) {
         if (itemData.itemOwner.id === simulID) {
-            const borrower = itemData.itemBorrower.fullName;
+            const borrower = itemData.borrower.fullName;
             status = `LENT TO ${borrower.toUpperCase()}`;
         } else {
             status = 'UNAVAILABLE';
@@ -21,7 +21,7 @@ const checkBorrower = ({ itemData }) => {
 
 const ItemCard = ({ itemData }) => (
     <div className="item-card-wrapper">
-        <Card key={itemData.id}>
+        <Card>
             <CardMedia
                 overlay={
                     (!itemData.available) ? <CardTitle subtitle={checkBorrower({ itemData })} /> : null

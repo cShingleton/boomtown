@@ -3,6 +3,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
+
+import client from '../config/apolloclient';
 import Reducers from './combine-reducers';
 import { history } from '../index';
 
@@ -16,7 +18,8 @@ export default createStore(
     applyMiddleware(
         logger,
         thunk,
-        reduxRouter
+        reduxRouter,
+        client.middleware()
     )
    )
 );

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Loader from '../../components/Loader/';
 import Profile from './Profile';
 import { fetchAndRenderProfile } from '../../redux/modules/profile';
-import { fetchAndRenderItems } from '../../redux/modules/items';
+// import { fetchAndRenderItems } from '../../redux/modules/items';
 import Items from '../../containers/Items/Items';
 import './styles.css';
 
@@ -12,7 +12,7 @@ class ProfileContainer extends Component {
 
     componentDidMount() {
         this.props.dispatch(fetchAndRenderProfile(this.props.match.params.id));
-        this.props.dispatch(fetchAndRenderItems(this.props.match.params.id));
+        // this.props.dispatch(fetchAndRenderItems(this.props.match.params.id));
     }
 
     render() {
