@@ -5,7 +5,6 @@ TO-DO:
     TO-DO: Containers 
         - Profile 
 
-4. Add Footer component
 5. Update Profile to use a GQL query instead of fetch request
 
 ==========
@@ -19,3 +18,4 @@ COMPLETED:
 1. Change window location path conditional to use react routers params in HeaderBar
 1.1. Break up Proptype validation in ItemsContainer into a shape for itemsData
 2. Assign each item a unique id at ItemCardList
+4. Add Footer component

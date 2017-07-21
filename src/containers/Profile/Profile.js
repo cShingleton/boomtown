@@ -4,22 +4,15 @@ import PropTypes from 'prop-types';
 import Gravatar from 'react-gravatar';
 import './styles.css';
 
-const retrieveBorrowedNum = (userData, itemsData) => {
-    const borrowed = itemsData.filter(item => userData.id === item.borrower);
-    return borrowed.length;
-};
+// const retrieveBorrowedNum = userData => userData.borrowed.length;
 
-const retrieveSharedNum = (userData, itemsData) => {
-    const shared = itemsData.filter(item => userData.id === item.itemOwner.id);
-    return shared.length;
-};
+// const retrieveSharedNum = userData => userData.items.length;
 
-const retrieveCurrentlyBorrowing = (userData, itemsData) => {
-    const borrowed = itemsData.filter(item => userData.id === item.borrower);
-    return borrowed.map(item => <li>{item.title} from {item.itemOwner.fullName}</li>);
-};
+const retrieveCurrentlyBorrowing = userData => userData.borrowed.map(item =>
+    <li key={item.id}>{item.title} from {item.itemOwner.fullName}</li>
+);
 
-const Profile = ({ userData, itemsData }) => (
+const Profile = ({ userData }) => (
     <div className="card-wrapper">
         <Card>
             <div className="item-status-info">
@@ -32,7 +25,7 @@ const Profile = ({ userData, itemsData }) => (
                         title={'Currently borrowing:'}
                         subtitle={
                             <ul>
-                                {retrieveCurrentlyBorrowing(userData, itemsData)}
+                                {retrieveCurrentlyBorrowing(userData)}
                             </ul>
                         }
                     />
@@ -40,16 +33,16 @@ const Profile = ({ userData, itemsData }) => (
             </div>
             <div className="share-stats">
                 <CardTitle
-                    title={retrieveSharedNum(userData, itemsData)}
+                    title={userData.items.length}
                     subtitle={'Items Shared'}
                 />
                 <CardTitle
-                    title={retrieveBorrowedNum(userData, itemsData)}
+                    title={userData.borrowed.length}
                     subtitle={'Items Borrowed'}
                 />
             </div>
             <div className="profile-img-holder">
-                <Gravatar email={userData.email} className="profile-avatar" size={180} />
+                <Gravatar email={userData.email} className="profile-avatar" size={180} /> 
             </div>
         </Card>
     </div>
@@ -58,6 +51,28 @@ const Profile = ({ userData, itemsData }) => (
 export default Profile;
 
 Profile.propTypes = {
-    userData: PropTypes.objectOf(PropTypes.string).isRequired,
-    itemsData: PropTypes.arrayOf(PropTypes.object).isRequired
+    userData: PropTypes.shape({
+        bio: PropTypes.string.isRequired,
+        fullName: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        items: PropTypes.arrayOf(PropTypes.shape({
+            available: PropTypes.bool.isRequired,
+            borrower: PropTypes.objectOf(PropTypes.string),
+            createdOn: PropTypes.number.isRequired,
+            description: PropTypes.string.isRequired,
+            id: PropTypes.number.isRequired,
+            imageUrl: PropTypes.string.isRequired,
+            itemOwner: PropTypes.shape({
+                id: PropTypes.string.isRequired,
+                fullName: PropTypes.string.isRequired,
+                email: PropTypes.string.isRequired
+            }).isRequired,
+            tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+            title: PropTypes.string.isRequired
+        })),
+        borrowed: PropTypes.arrayOf(PropTypes.shape({
+            itemOwner: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
+            title: PropTypes.string.isRequired
+        }))
+    }).isRequired
 };
