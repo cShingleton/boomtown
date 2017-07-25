@@ -16,7 +16,17 @@ import client from './config/apolloclient';
 import './index.css';
 import muiTheme from './config/theme';
 import Layout from './components/Layout';
+import { FireBaseAuth } from './config/firebase';
+import { updateAuthState } from './redux/modules/auth';
 
+// IF USER JUST SIGNED IN GRAB USER FROM DB AND AUTHENTICATE, ELSE LOG OUT USER.
+FireBaseAuth.onAuthStateChanged(user => {
+    if (user) {
+        store.dispatch(updateAuthState(user.uid));
+    } else {
+        store.dispatch(updateAuthState(false));
+    }
+});
 
 injectTapEventPlugin();
 

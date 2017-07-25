@@ -1,11 +1,12 @@
-TO-DO:
-1. Finish Proptype validation across the app
-    DONE: Components
-    DONE: Config
-    TO-DO: Containers 
-        - Profile 
+NB: Default exports do not require {} when importing. Named exports do require them. 
 
-5. Update Profile to use a GQL query instead of fetch request
+TO-DO:
+6. Write actions for:
+    - login error
+    - add/remove user Profile
+7. Create an auth reducer containing all our auth actions 
+8. Build a sign-up form using material-ui with all desired fields
+9. Build a share form with all appropriate fields 
 
 ==========
 
@@ -17,5 +18,10 @@ OPTIONAL:
 COMPLETED:
 1. Change window location path conditional to use react routers params in HeaderBar
 1.1. Break up Proptype validation in ItemsContainer into a shape for itemsData
-2. Assign each item a unique id at ItemCardList
+2. Finish Proptype validation across the app
+    DONE: Components
+    DONE: Config
+    DONE: Containers  
+3. Assign each item a unique id at ItemCardList
 4. Add Footer component
+5. Update Profile to use a GQL query instead of fetch request
