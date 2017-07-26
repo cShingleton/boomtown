@@ -2,7 +2,9 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {
   lightBlue200,
   blueGrey900,
-  white
+  white,
+  black,
+  red100
 } from 'material-ui/styles/colors';
 
 export default getMuiTheme({
@@ -17,6 +19,10 @@ export default getMuiTheme({
         color: white,
         height: 60
     },
+    Dialog: {
+        height: 20,
+        color: red100
+    },
     flatButton: {
         color: blueGrey900,
         textColor: white
@@ -24,5 +30,8 @@ export default getMuiTheme({
     raisedButton: {
         primary1Color: lightBlue200,
         secondary1Color: blueGrey900
+    },
+    errorStyle: {
+        textColor: black
     }
 });

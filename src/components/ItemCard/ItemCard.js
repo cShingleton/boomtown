@@ -12,7 +12,7 @@ const checkBorrower = ({ itemData }) => {
     const simulID = 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2'; // Simulated user - Mandi
     if (itemData.borrower) {
         if (itemData.itemOwner.id === simulID) {
-            const borrower = itemData.borrower.fullName;
+            const borrower = itemData.borrower.fullname;
             status = `LENT TO ${borrower.toUpperCase()}`;
         } else {
             status = 'UNAVAILABLE';
@@ -34,7 +34,7 @@ const ItemCard = ({ itemData }) => (
             <a target={'_self'} href={`/profile/${itemData.itemOwner.id}`}>
                 <CardHeader
                     className={'itemcard-header'}
-                    title={itemData.itemOwner.fullName}
+                    title={itemData.itemOwner.fullname}
                     subtitle={Moment.unix(itemData.createdOn).fromNow()}
                     avatar={<Gravatar email={itemData.itemOwner.email} />}
                 />
@@ -65,7 +65,7 @@ ItemCard.propTypes = {
         imageUrl: PropTypes.string.isRequired,
         itemOwner: PropTypes.shape({
             id: PropTypes.string.isRequired,
-            fullName: PropTypes.string.isRequired,
+            fullname: PropTypes.string.isRequired,
             email: PropTypes.string.isRequired
         }).isRequired,
         tags: PropTypes.arrayOf(PropTypes.string).isRequired,

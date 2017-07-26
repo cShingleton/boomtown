@@ -1,12 +1,16 @@
 NB: Default exports do not require {} when importing. Named exports do require them. 
 
 TO-DO:
-6. Write actions for:
-    - login error
-    - add/remove user Profile
-7. Create an auth reducer containing all our auth actions 
-8. Build a sign-up form using material-ui with all desired fields
-9. Build a share form with all appropriate fields 
+*** ESSENTIAL *** 8. Build a sign-up form container OR as a modal using material-ui with all desired fields [all the required fields from the user schema]
+9. Build a share form with all appropriate fields
+10. Add proptypes for login container
+11. Take out fixed-id-validation for item overlays rendering after finishing firebase authentication
+*** ESSENTIAL *** 12. Move signinwithpassword out of login container and make it a thunk and importable anywhere
+13. Change the card component in profile container to paper component from material-ui
+14. Chain error catches on the pool queries in the server
+15. add what i learned, install and technology used to readme file
+16. Finish conversion of fetch requests to pool queries
+17. change column name of fullname in Postico to fullname (PostGres doesn't like camelCase)
 
 ==========
 
@@ -25,3 +29,7 @@ COMPLETED:
 3. Assign each item a unique id at ItemCardList
 4. Add Footer component
 5. Update Profile to use a GQL query instead of fetch request
+6. Write actions for:
+    - login error
+    - add/remove user Profile
+7. Create an auth reducer containing all our auth actions 
