@@ -9,7 +9,7 @@ import './styles.css';
 // const retrieveSharedNum = userData => userData.items.length;
 
 const retrieveCurrentlyBorrowing = userData => userData.borrowed.map(item =>
-    <li key={item.id}>{item.title} from {item.itemOwner.fullName}</li>
+    <li key={item.id}>{item.title} from {item.itemOwner.fullname}</li>
 );
 
 const Profile = ({ userData }) => (
@@ -17,7 +17,7 @@ const Profile = ({ userData }) => (
         <Card>
             <div className="item-status-info">
                 <CardTitle
-                    title={userData.fullName}
+                    title={userData.fullname}
                     subtitle={userData.bio}
                 />
                 <div>
@@ -53,7 +53,7 @@ export default Profile;
 Profile.propTypes = {
     userData: PropTypes.shape({
         bio: PropTypes.string.isRequired,
-        fullName: PropTypes.string.isRequired,
+        fullname: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
         items: PropTypes.arrayOf(PropTypes.shape({
             available: PropTypes.bool.isRequired,
@@ -64,7 +64,7 @@ Profile.propTypes = {
             imageUrl: PropTypes.string.isRequired,
             itemOwner: PropTypes.shape({
                 id: PropTypes.string.isRequired,
-                fullName: PropTypes.string.isRequired,
+                fullname: PropTypes.string.isRequired,
                 email: PropTypes.string.isRequired
             }).isRequired,
             tags: PropTypes.arrayOf(PropTypes.string).isRequired,

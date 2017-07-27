@@ -35,12 +35,12 @@ const fetchUser = gql`
         user (id: $id) {
             id
             bio
-            fullName
+            fullname
             email
             items {
                 available
                 borrower {
-                    fullName
+                    fullname
                 }
                 createdOn
                 description
@@ -48,7 +48,7 @@ const fetchUser = gql`
                 imageUrl
                 itemOwner {
                     id
-                    fullName
+                    fullname
                     email
                 }
                 tags
@@ -58,7 +58,7 @@ const fetchUser = gql`
                 id
                 title 
                 itemOwner {
-                    fullName
+                    fullname
                 }
             }
         }
@@ -79,7 +79,7 @@ ProfileContainer.propTypes = {
         loading: PropTypes.bool.isRequired,
         user: PropTypes.shape({
             bio: PropTypes.string.isRequired,
-            fullName: PropTypes.string.isRequired,
+            fullname: PropTypes.string.isRequired,
             email: PropTypes.string.isRequired,
             items: PropTypes.arrayOf(PropTypes.shape({
                 available: PropTypes.bool.isRequired,
@@ -90,7 +90,7 @@ ProfileContainer.propTypes = {
                 imageUrl: PropTypes.string.isRequired,
                 itemOwner: PropTypes.shape({
                     id: PropTypes.string.isRequired,
-                    fullName: PropTypes.string.isRequired,
+                    fullname: PropTypes.string.isRequired,
                     email: PropTypes.string.isRequired
                 }).isRequired,
                 tags: PropTypes.arrayOf(PropTypes.string).isRequired,

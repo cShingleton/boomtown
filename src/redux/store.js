@@ -8,18 +8,21 @@ import client from '../config/apolloclient';
 import Reducers from './combine-reducers';
 import { history } from '../index';
 
-// CAPTURE USER INFORMATION AND UPDATE FILTERING FUNCTIONALITY HERE
-
 const reduxRouter = routerMiddleware(history);
+
+const middleware = [
+    thunk,
+    reduxRouter,
+    client.middleware()
+];
+
+if (process.env.NODE_ENV === 'development') {
+    middleware.unshift(logger);
+}
 
 export default createStore(
    Reducers,
    composeWithDevTools(
-    applyMiddleware(
-        logger,
-        thunk,
-        reduxRouter,
-        client.middleware()
-    )
+    applyMiddleware(...middleware)
    )
 );

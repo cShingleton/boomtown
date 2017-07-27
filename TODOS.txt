@@ -1,4 +1,5 @@
 NB: Default exports do not require {} when importing. Named exports do require them. 
+NB: Run npm run build just before submitting the project!
 
 TO-DO:
 *** ESSENTIAL *** 8. Build a sign-up form container OR as a modal using material-ui with all desired fields [all the required fields from the user schema]
@@ -11,6 +12,9 @@ TO-DO:
 15. add what i learned, install and technology used to readme file
 16. Finish conversion of fetch requests to pool queries
 17. change column name of fullname in Postico to fullname (PostGres doesn't like camelCase)
+18. research redux form 
+19. In Redux modules change every mention of render in action definitions to something else
+20. Profile page masonry and css needs tweaking
 
 ==========
 

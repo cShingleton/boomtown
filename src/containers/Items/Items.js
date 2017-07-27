@@ -19,7 +19,7 @@ Items.propTypes = {
         imageUrl: PropTypes.string.isRequired,
         itemOwner: PropTypes.shape({
             id: PropTypes.string.isRequired,
-            fullName: PropTypes.string.isRequired,
+            fullname: PropTypes.string.isRequired,
             email: PropTypes.string.isRequired
         }).isRequired,
         tags: PropTypes.arrayOf(PropTypes.string).isRequired,
