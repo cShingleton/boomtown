@@ -1,18 +1,25 @@
 // redux form should create the reducer automatically
 const STEP_FORWARD = 'STEP_FORWARD';
 const STEP_BACKWARD = 'STEP_BACKWARD';
+const TITLE_KEY_PRESS = 'TITLE_KEY_PRESS';
+const DESCRIPTION_KEY_PRESS = 'DESCRIPTION_KEY_PRESS';
+const SELECT_ITEM_TAGS = 'SELECT_ITEM_TAGS';
 
 const initialState = {
-    form: {
+    step: {
         finished: false,
         stepIndex: 0
         // loading
     },
-    image: {
-        url: ''
+    form: {
+        imageurl: '',
+        title: '',
+        description: '',
+        tags: []
     }
 };
 
+// ACTION CONSTANTS
 export function stepForward(stepIndex) {
     return {
         type: STEP_FORWARD,
@@ -27,6 +34,30 @@ export function stepBackward(stepIndex) {
     };
 }
 
+export function captureTitleInput(title) {
+    return {
+        type: TITLE_KEY_PRESS,
+        payload: title
+    };
+}
+
+export function captureDescriptionInput(description) {
+    return {
+        type: DESCRIPTION_KEY_PRESS,
+        payload: description
+    };
+}
+
+export function selectItemTags(tags) {
+    return {
+        type: SELECT_ITEM_TAGS,
+        payload: tags
+    };
+}
+
+
+// REDUCERS
+
 function StepReducer(state, action) {
     switch (action.type) {
     case STEP_FORWARD:
@@ -35,10 +66,33 @@ function StepReducer(state, action) {
             stepIndex: action.payload + 1
         };
     case STEP_BACKWARD:
-        return { 
+        return {
             ...state,
-            stepIndex: action.payload - 1 };
-    default: 
+            stepIndex: action.payload - 1
+        };
+    default:
+        return state;
+    }
+}
+
+export function FormReducer(state = initialState, action) {
+    switch (action.type) {
+    case TITLE_KEY_PRESS:
+        return {
+            ...state,
+            title: action.payload
+        };
+    case DESCRIPTION_KEY_PRESS:
+        return {
+            ...state,
+            description: action.payload
+        };
+    case SELECT_ITEM_TAGS:
+        return {
+            ...state,
+            tags: action.payload
+        };
+    default:
         return state;
     }
 }
@@ -46,23 +100,19 @@ function StepReducer(state, action) {
 export function ShareFormReducer(state = initialState, action) {
     switch (action.type) {
     case STEP_FORWARD:
-        return {
-            ...state,
-            form: StepReducer(state.form, action)
-        };
     case STEP_BACKWARD:
         return {
             ...state,
-            form: StepReducer(state.form, action)
+            step: StepReducer(state.step, action)
+        };
+    case TITLE_KEY_PRESS:
+    case DESCRIPTION_KEY_PRESS:
+    case SELECT_ITEM_TAGS:
+        return {
+            ...state,
+            form: FormReducer(state.form, action)
         };
     default:
         return state;
     }
 }
-
-//   handleNext = () => {
-//     const {stepIndex} = this.state;
-//     if (stepIndex < 2) {
-//       this.setState({stepIndex: stepIndex + 1});
-//     }
-//   };

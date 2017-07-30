@@ -25,7 +25,7 @@ const Layout = ({ children, pathname }) => (
             </Link>
         </div>
         <footer className="appFooter">
-        {(pathname === '/login' || pathname === '/login/') ?
+            {(pathname === '/login' || pathname === '/login/') ?
                  null : <Footer />
             }
         </footer>

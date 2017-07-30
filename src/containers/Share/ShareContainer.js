@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
 import { FireBaseStorage, FireBaseAuth } from '../../config/firebase';
-import Share from './Share';
+import { captureTitleInput, captureDescriptionInput, selectItemTags } from '../../redux/modules/share';
+import ShareForm from './ShareForm';
+import ShareCard from './ShareCard';
+import Loader from '../../components/Loader/';
+import './styles.css';
 
 class ShareContainer extends Component {
 
@@ -9,9 +16,7 @@ class ShareContainer extends Component {
 //         this.fileInput = this.fileInput || fileInput;
 //         this.fileInput.click();
 //     }
-//     handleSubmit = () => {
-//         console.log('Submit handled!');
-//     }
+//     
 
 //     handleImageUpload = () => {
 //         const cloud = FireBaseStorage.ref();
@@ -26,18 +31,54 @@ class ShareContainer extends Component {
 //                 });
 //     }
 
+    //handleSubmit = () => {
+//         console.log('Submit handled!');
+//     }
+
     render() {
+        if (this.props.data.loading) return <Loader />;
         return (
-            <div>
-                <Share
-                    renderStepActions={this.renderStepActions}  
+            <div className="share-wrapper">
+                <ShareCard
+                    cardData={this.props.formData}
+                    userData={this.props.data.user}
+                />
+                <ShareForm
+                    captureTitle={captureTitleInput}
+                    captureDescription={captureDescriptionInput}
+                    selectValues={this.props.formData.tags}
+                    selectItemTags={selectItemTags}
                 />
             </div>
         );
     }
 }
 
-export default connect()(ShareContainer);
+const fetchUser = gql`
+    query fetchUser($id: ID!) {
+        user (id: $id) {
+            id
+            bio
+            fullname
+            email
+        }
+    }
+`;
+
+const mapStateToProps = (state) => ({
+    formData: state.share.form,
+    authenticated: state.auth.userProfile
+});
+
+const ShareFormWithData = graphql(fetchUser, {
+    options: ownProps => ({
+        variables: {
+            id: ownProps.authenticated
+        }
+    })
+});
+
+export default connect(mapStateToProps)(ShareFormWithData(ShareContainer));
 
 // handleImageUpload={this.handleImageUpload} selectImage={this.selectImage} -- share component props
 

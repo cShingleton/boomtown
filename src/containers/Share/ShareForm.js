@@ -1,15 +1,15 @@
 import React from 'react';
-import { RaisedButton, FlatButton, TextField, SelectField, MenuItem } from 'material-ui';
+import { RaisedButton, FlatButton, SelectField, MenuItem } from 'material-ui';
 import {
   Step,
   Stepper,
   StepLabel,
-  StepContent,
-  StepButton
+  StepContent
 } from 'material-ui/Stepper';
 import { connect } from 'react-redux';
 import { black, blue500 } from 'material-ui/styles/colors';
 import { stepForward, stepBackward } from '../../redux/modules/share';
+import ValidatedTextField from '../../components/ValidatedTextField/';
 import './styles.css';
 
 const styles = {
@@ -29,7 +29,11 @@ const Share = ({
     handleImageUpload, 
     selectImage,
     dispatch,
-    stepIndex
+    stepIndex,
+    captureTitle,
+    captureDescription,
+    selectValues,
+    selectItemTags
 }) => {
     const tags = ['Electronics', 'Household Items', 'Musical Instruments', 'Sporting Goods',
         'Recreational Equipment', 'Physical Media', 'Tools'];
@@ -76,41 +80,25 @@ const Share = ({
                             disableTouchRipple
                             disableFocusRipple
                             primary
+                            onClick={() => selectImage(uploadInput)}
                             style={{marginRight: 12}}
                         /><br />
                         {renderStepActions(0)}
                     </StepContent>
-                    
-                    {/* <RaisedButton
-                        label="Select an Image"
-                        primary
-                        onClick={() => selectImage(uploadInput)}
-                    /> */}
-                    {/* <FlatButton
-                        label="Next"
-                        secondary
-                        onTouchTap={() => this.setState({stepIndex: 0})}>
-                    </FlatButton> */}
             </Step>
             <Step>
                 <StepLabel>Add a Title and Description</StepLabel>
                 <StepContent>
                     <p>Folks need to know what you're sharing. Give them a clue by adding a title and a description.</p>
-                    <TextField
-                        hintText="Title"
-                        errorText="This field is required"
-                        errorStyle={styles.errorStyle}
-                        floatingLabelText="Title"
-                        floatingLabelFocusStyle={styles.floatingLabelStyle}
+                    <ValidatedTextField
+                        label="Title"
+                        type="input"
+                        onChangeAction={(e) => dispatch(captureTitle(e.target.value))}
                     /><br />
-                    <TextField
-                        hintText="Description!"
-                        errorText="This Field is Required"
-                        errorStyle={styles.errorStyle}
-                        floatingLabelText="Description!"
-                        floatingLabelFocusStyle={styles.floatingLabelStyle}
-                        multiline
-                        rows={3}
+                    <ValidatedTextField
+                        label="Description"
+                        type="input"
+                        onChangeAction={(e) => dispatch(captureDescription(e.target.value))}
                     />
                     {renderStepActions(1)}
                 </StepContent>
@@ -122,14 +110,14 @@ const Share = ({
                     <SelectField
                         multiple
                         hintText={'Select Category Tags'}
-                        //value={selectValues}
-                        //onChange={(event, index, values) => dispatch(onChangeAction(values, selectValues))}
+                        value={selectValues}
+                        onChange={(event, index, values) => dispatch(selectItemTags(values, selectValues))}
                     >
                         {tags.map(tag => (
                             <MenuItem
                                 key={tag}
                                 insetChildren
-                                //checked={selectValues && selectValues.includes(tag)}
+                                checked={selectValues && selectValues.includes(tag)}
                                 value={tag}
                                 primaryText={tag}
                             />
@@ -152,7 +140,7 @@ const Share = ({
 
 function mapStateToProps(state) {
     return {
-        stepIndex: state.share.form.stepIndex
+        stepIndex: state.share.step.stepIndex
     };
 }
 

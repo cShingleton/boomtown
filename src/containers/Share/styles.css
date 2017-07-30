@@ -1,0 +1,7 @@
+.share-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 4rem;
+}
