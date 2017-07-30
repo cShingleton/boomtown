@@ -30,7 +30,7 @@ export function updateAuthState(userProfile) {
     };
 }
 
-export function AuthRenderer(state = initialState, action) {
+export function AuthReducer(state = initialState, action) {
     switch (action.type) {
     case SHOW_LOGIN_ERROR:
         return { ...state, showLoginEror: action.payload };

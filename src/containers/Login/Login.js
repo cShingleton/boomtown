@@ -11,7 +11,14 @@ import logo from '../../images/boomtown-logo.svg';
 import bottomLeft from '../../images/home-bl.svg';
 import topRight from '../../images/home-tr.svg';
 
-const Login = ({ login, children, handleOpen, dispatch }) => (
+const Login = ({
+        login,
+        children,
+        handleOpen,
+        dispatch,
+        capturePassword,
+        captureEmail
+    }) => (
     <div className="page login">
         <div className="logo">
             <img src={logo} alt="Boomtown Logo" />
@@ -28,15 +35,23 @@ const Login = ({ login, children, handleOpen, dispatch }) => (
                 <div className="formContainer">
                     <form onSubmit={login} autoComplete="off">
                         <div>
-                            <ValidatedTextField label="Email" />
+                            <ValidatedTextField
+                                label="Email"
+                                type="input"
+                                onChangeAction={(e) => dispatch(captureEmail(e.target.value))}
+                            />
                         </div>
                         <div>
-                            <ValidatedTextField label="Password" />
+                            <ValidatedTextField
+                                label="Password"
+                                type="password"
+                                onChangeAction={(e) => dispatch(capturePassword(e.target.value))}
+                            />
                         </div>
-                        <RaisedButton className="enterButton" primary fullWidth type="submit">
+                        <RaisedButton className="enterButton" primary type="submit">
                             Enter
                         </RaisedButton>
-                        <RaisedButton className="enterButton" secondary fullWidth onTouchTap={() => dispatch(handleOpen(true))}>
+                        <RaisedButton className="enterButton" secondary onTouchTap={() => dispatch(handleOpen(true))}>
                             Sign Up
                         </RaisedButton>
                     </form>

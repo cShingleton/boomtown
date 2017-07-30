@@ -11,3 +11,14 @@
   width: 100%;
   flex:1;
 }
+
+.appFooter {
+  margin: 2rem 0 1rem;
+  text-align: center;
+}
+
+.shareButton {
+  bottom: 1rem;
+  position: fixed;
+  right: 1rem;
+}

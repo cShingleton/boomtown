@@ -10,17 +10,17 @@ TO-DO:
 13. Change the card component in profile container to paper component from material-ui
 14. Chain error catches on the pool queries in the server
 15. add what i learned, install and technology used to readme file
-16. Finish conversion of fetch requests to pool queries
-17. change column name of fullname in Postico to fullname (PostGres doesn't like camelCase)
 18. research redux form 
-19. In Redux modules change every mention of render in action definitions to something else
 20. Profile page masonry and css needs tweaking
+22. add borrow modal : mutation that passes and executes an update query in a sql update to change borrower and available columns
+23. Fix the profile renderings via clicking myProfile button
+24. Fix weird link to profile error for individual itemcards 
 
 ==========
 
 OPTIONAL:
 3. Make a separate queries file for GraphQl queries and import them as consts into each component.
- 
+4. Use a stepper form for the share form
 ==========
 
 COMPLETED:
@@ -37,3 +37,8 @@ COMPLETED:
     - login error
     - add/remove user Profile
 7. Create an auth reducer containing all our auth actions 
+16. Finish conversion of fetch requests to pool queries
+17. change column name of fullname in Postico to fullname (PostGres doesn't like camelCase)
+19. In Redux modules change every mention of render in action definitions to something else
+21. Tags will return as array of objects now, {map and then join resulting map} rather than string so will need to amend any reference to tags in ItemCard
+24. Replace all a tags throughout site with Link component

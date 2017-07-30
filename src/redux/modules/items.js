@@ -23,7 +23,7 @@ export function updateItemsFilter(filters) {
     };
 }
 
-export function ItemRenderer(state = initialState, action) {
+export function ItemReducer(state = initialState, action) {
     switch (action.type) {
     case RENDER_DATA_AS_ITEMS:
         return { ...state, specificUserItems: action.payload.specificUserItems, itemsData: action.payload.allItems };
@@ -42,15 +42,15 @@ export function ItemRenderer(state = initialState, action) {
 //                ))).then(json => {
 //                    const [items, users] = json;
 //                    const allItems = items.map(item => {
-//                        const itemOwner = users.filter(user => user.id === item.itemOwner);
+//                        const itemowner = users.filter(user => user.id === item.itemowner);
 //                        const itemBorrower = users.filter(user => user.id === item.borrower);
-//                        item.itemOwner = itemOwner[0];
+//                        item.itemowner = itemowner[0];
 //                        item.itemBorrower = itemBorrower[0];
 //                        return item;
 //                    });
 //                    let specificUserItems = [];
 //                    if (userId) { // TODO: turn this into a reduce
-//                        specificUserItems = allItems.filter(item => item.itemOwner.id === userId);
+//                        specificUserItems = allItems.filter(item => item.itemowner.id === userId);
 //                    }
 //                    dispatch(renderDataAsItems(allItems, specificUserItems));
 //                });

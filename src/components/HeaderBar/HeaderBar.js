@@ -2,18 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { AppBar, RaisedButton } from 'material-ui';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { FireBaseAuth } from '../../config/firebase';
 import logo from '../../images/boomtown-logo.svg';
 import FilterField from '../../containers/FilterField';
 import { updateItemsFilter } from '../../redux/modules/items';
 import './styles.css';
 
-const HeaderBar = ({ itemFilters, pathname }) => (
+const HeaderBar = ({ itemFilters, pathname, userProfile }) => (
     <AppBar
         showMenuIconButton={false}
         className={'headerbar'}
         title={
             <div className="title-wrapper">
-                <a href="/"><img className="headerbar-logo" src={logo} alt="boomtown logo" /></a>
+                <Link to={'/'}>
+                    <img className="headerbar-logo" src={logo} alt="boomtown logo" />
+                </Link>
                 <div className="header-filter">
                     {(pathname === '/') ?
                         <FilterField
@@ -27,8 +31,19 @@ const HeaderBar = ({ itemFilters, pathname }) => (
     >
         <div>
             <div className="headerbuttonwrapper">
-                <RaisedButton className="headerbar-btns" primary label="My Profile" />
-                <RaisedButton className="headerbar-btns" secondary label="Log Out" />
+                <Link to={`/profile/${userProfile}`}>
+                    <RaisedButton
+                        className="headerbar-btns"
+                        primary
+                        label="My Profile"
+                    />
+                </Link>
+                <RaisedButton
+                    className="headerbar-btns"
+                    secondary
+                    label="Log Out"
+                    onTouchTap={() => FireBaseAuth.signOut()}
+                />
             </div>
         </div>
     </AppBar>
@@ -36,7 +51,8 @@ const HeaderBar = ({ itemFilters, pathname }) => (
 
 const mapStateFromProps = (state) => ({
     itemFilters: state.items.itemFilters,
-    pathname: state.router.location.pathname
+    pathname: state.router.location.pathname,
+    userProfile: state.auth.userProfile
 });
 
 export default connect(mapStateFromProps)(HeaderBar);

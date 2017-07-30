@@ -13,11 +13,11 @@ Items.propTypes = {
     itemsData: PropTypes.arrayOf(PropTypes.shape({
         available: PropTypes.bool.isRequired,
         borrower: PropTypes.objectOf(PropTypes.string),
-        createdOn: PropTypes.number.isRequired,
+        created: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,
-        imageUrl: PropTypes.string.isRequired,
-        itemOwner: PropTypes.shape({
+        imageurl: PropTypes.string.isRequired,
+        itemowner: PropTypes.shape({
             id: PropTypes.string.isRequired,
             fullname: PropTypes.string.isRequired,
             email: PropTypes.string.isRequired

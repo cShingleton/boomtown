@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import PropTypes from 'prop-types';
 import Gravatar from 'react-gravatar';
+import { connect } from 'react-redux';
 import './styles.css';
 
 // const retrieveBorrowedNum = userData => userData.borrowed.length;
@@ -9,10 +10,10 @@ import './styles.css';
 // const retrieveSharedNum = userData => userData.items.length;
 
 const retrieveCurrentlyBorrowing = userData => userData.borrowed.map(item =>
-    <li key={item.id}>{item.title} from {item.itemOwner.fullname}</li>
+    <li key={item.id}>{item.title} from {item.itemowner.fullname}</li>
 );
 
-const Profile = ({ userData }) => (
+const Profile = ({ userData, authenticated }) => (
     <div className="card-wrapper">
         <Card>
             <div className="item-status-info">
@@ -20,16 +21,20 @@ const Profile = ({ userData }) => (
                     title={userData.fullname}
                     subtitle={userData.bio}
                 />
-                <div>
-                    <CardTitle
-                        title={'Currently borrowing:'}
-                        subtitle={
-                            <ul>
-                                {retrieveCurrentlyBorrowing(userData)}
-                            </ul>
-                        }
-                    />
-                </div>
+                {(authenticated === userData.id)
+                    ?
+                        <div>
+                            <CardTitle
+                                title={'Currently borrowing:'}
+                                subtitle={
+                                    <ul>
+                                        {retrieveCurrentlyBorrowing(userData)}
+                                    </ul>
+                                }
+                            />
+                        </div>
+                    : null
+                }
             </div>
             <div className="share-stats">
                 <CardTitle
@@ -48,7 +53,11 @@ const Profile = ({ userData }) => (
     </div>
 );
 
-export default Profile;
+const mapStateToProps = (state) => ({
+    authenticated: state.auth.userProfile
+});
+
+export default connect(mapStateToProps)(Profile);
 
 Profile.propTypes = {
     userData: PropTypes.shape({
@@ -58,11 +67,11 @@ Profile.propTypes = {
         items: PropTypes.arrayOf(PropTypes.shape({
             available: PropTypes.bool.isRequired,
             borrower: PropTypes.objectOf(PropTypes.string),
-            createdOn: PropTypes.number.isRequired,
+            created: PropTypes.number.isRequired,
             description: PropTypes.string.isRequired,
             id: PropTypes.number.isRequired,
-            imageUrl: PropTypes.string.isRequired,
-            itemOwner: PropTypes.shape({
+            imageurl: PropTypes.string.isRequired,
+            itemowner: PropTypes.shape({
                 id: PropTypes.string.isRequired,
                 fullname: PropTypes.string.isRequired,
                 email: PropTypes.string.isRequired
@@ -71,8 +80,9 @@ Profile.propTypes = {
             title: PropTypes.string.isRequired
         })),
         borrowed: PropTypes.arrayOf(PropTypes.shape({
-            itemOwner: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
+            itemowner: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
             title: PropTypes.string.isRequired
         }))
-    }).isRequired
+    }).isRequired,
+    authenticated: PropTypes.string.isRequired
 };

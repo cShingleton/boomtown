@@ -18,7 +18,7 @@ class ItemsContainer extends Component {
         const items = this.props.data.items;
 
         if (itemFilters.length) {
-            return items.filter(item => item.tags.find(tag => itemFilters.includes(tag)));
+            return items.filter(item => item.tags.find(tag => itemFilters.includes(tag.title)));
         }
         return items;
     }
@@ -31,6 +31,7 @@ class ItemsContainer extends Component {
     }
 }
 
+// fix the created time stamp because Int cannot accept signed 32 input signed
 const fetchItems = gql`
     query fetchItems {
          items {
@@ -38,16 +39,18 @@ const fetchItems = gql`
             borrower {
                 fullname
             }
-            createdOn
+            created
             description
             id
-            imageUrl
-            itemOwner {
+            imageurl
+            itemowner {
                 id
                 fullname
                 email
             }
-            tags
+            tags {
+                title
+            }
             title
         } 
     }
@@ -70,11 +73,11 @@ ItemsContainer.propTypes = {
         items: PropTypes.arrayOf(PropTypes.shape({
             available: PropTypes.bool.isRequired,
             borrower: PropTypes.objectOf(PropTypes.string),
-            createdOn: PropTypes.number.isRequired,
+            created: PropTypes.number.isRequired,
             description: PropTypes.string.isRequired,
             id: PropTypes.number.isRequired,
-            imageUrl: PropTypes.string.isRequired,
-            itemOwner: PropTypes.shape({
+            imageurl: PropTypes.string.isRequired,
+            itemowner: PropTypes.shape({
                 id: PropTypes.string.isRequired,
                 fullname: PropTypes.string.isRequired,
                 email: PropTypes.string.isRequired

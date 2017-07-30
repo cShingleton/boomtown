@@ -1,6 +1,7 @@
 import React from 'react';
 import Masonry from 'react-masonry-component';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import ItemCard from '../ItemCard/';
 import './styles.css';
@@ -15,17 +16,17 @@ const ItemCardList = ({ itemsData }) => (
     </div>
 );
 
-export default ItemCardList;
+export default connect()(ItemCardList);
 
 ItemCardList.propTypes = {
     itemsData: PropTypes.arrayOf(PropTypes.shape({
         available: PropTypes.bool.isRequired,
         borrower: PropTypes.objectOf(PropTypes.string),
-        createdOn: PropTypes.number.isRequired,
+        created: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,
-        imageUrl: PropTypes.string.isRequired,
-        itemOwner: PropTypes.shape({
+        imageurl: PropTypes.string.isRequired,
+        itemowner: PropTypes.shape({
             id: PropTypes.string.isRequired,
             fullname: PropTypes.string.isRequired,
             email: PropTypes.string.isRequired

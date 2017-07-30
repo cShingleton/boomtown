@@ -3,7 +3,9 @@ import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'm
 import FlatButton from 'material-ui/FlatButton';
 import Gravatar from 'react-gravatar';
 import Moment from 'moment';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import './styles.css';
 
@@ -11,7 +13,7 @@ const checkBorrower = ({ itemData }) => {
     let status = '';
     const simulID = 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2'; // Simulated user - Mandi
     if (itemData.borrower) {
-        if (itemData.itemOwner.id === simulID) {
+        if (itemData.itemowner.id === simulID) {
             const borrower = itemData.borrower.fullname;
             status = `LENT TO ${borrower.toUpperCase()}`;
         } else {
@@ -29,19 +31,19 @@ const ItemCard = ({ itemData }) => (
                     (!itemData.available) ? <CardTitle subtitle={checkBorrower({ itemData })} /> : null
                 }
             >
-                <img src={itemData.imageUrl} alt="" />
+                <img src={itemData.imageurl} alt="" />
             </CardMedia>
-            <a target={'_self'} href={`/profile/${itemData.itemOwner.id}`}>
+            <Link to={`/profile/${itemData.itemowner.id}`}>
                 <CardHeader
                     className={'itemcard-header'}
-                    title={itemData.itemOwner.fullname}
-                    subtitle={Moment.unix(itemData.createdOn).fromNow()}
-                    avatar={<Gravatar email={itemData.itemOwner.email} />}
+                    title={itemData.itemowner.fullname}
+                    subtitle={Moment(itemData.created, 'YYYYMMDD').fromNow()}
+                    avatar={<Gravatar email={itemData.itemowner.email} />}
                 />
-            </a>
+            </Link>
             <CardTitle
                 title={itemData.title}
-                subtitle={itemData.tags.join(', ')}
+                subtitle={itemData.tags.map(tag => tag.title).join(', ')}
             />
             <CardText>
                 {itemData.description}
@@ -53,17 +55,17 @@ const ItemCard = ({ itemData }) => (
     </div>
 );
 
-export default ItemCard;
+export default connect()(ItemCard);
 
 ItemCard.propTypes = {
     itemData: PropTypes.shape({
         available: PropTypes.bool.isRequired,
         borrower: PropTypes.objectOf(PropTypes.string),
-        createdOn: PropTypes.number.isRequired,
+        created: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,
-        imageUrl: PropTypes.string.isRequired,
-        itemOwner: PropTypes.shape({
+        imageurl: PropTypes.string.isRequired,
+        itemowner: PropTypes.shape({
             id: PropTypes.string.isRequired,
             fullname: PropTypes.string.isRequired,
             email: PropTypes.string.isRequired

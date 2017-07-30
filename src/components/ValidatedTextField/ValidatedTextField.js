@@ -18,18 +18,21 @@ const styles = {
     }
 };
 
-const ValidatedTextField = ({ label }) => (
+const ValidatedTextField = ({ label, type, onChangeAction }) => (
     <TextField
         style={styles.fieldStyle}
         hintText={label}
         floatingLabelText={label}
         errorStyle={styles.errorStyle}
         underlineFocusStyle={styles.underlineStyle}
+        type={type}
+        onChange={(e) => onChangeAction(e)}
     />
 );
 
 ValidatedTextField.propTypes = {
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired
 };
 
 export default ValidatedTextField;

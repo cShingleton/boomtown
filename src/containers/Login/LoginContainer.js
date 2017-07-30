@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { FireBaseAuth } from '../../config/firebase'; // FireBaseDB
 import { showLoginError, showSignUpModal } from '../../redux/modules/auth';
+import { captureEmailInput, capturePasswordInput } from '../../redux/modules/forms';
 import Login from './Login';
 import SignUpForm from '../SignUpForm/SignUpForm';
 
@@ -33,14 +33,21 @@ class LoginContainer extends Component {
     // };
 
     render() {
-        // if (this.props.userProfile) return <Redirect to={'/'} />;
+        const { from } = this.props.location.state || { from: { pathname: '/' } };
+        if (this.props.authenticated) {
+            return (
+                <Redirect to={from} />
+            );
+        }
         return (
             <Login
                 login={(e) => {
                     e.preventDefault();
-                    this.Login({ email: 'tet@test.com', password: 'testing' });
+                    this.Login({ email: this.props.email, password: this.props.password });
                 }}
                 handleOpen={showSignUpModal}
+                captureEmail={captureEmailInput}
+                capturePassword={capturePasswordInput}
             >
                 {(this.props.showJoinModal) ?
                     <SignUpForm
@@ -55,7 +62,9 @@ class LoginContainer extends Component {
 
 const mapStateToProps = state => ({
     showJoinModal: state.auth.showJoinModal,
-    userProfile: state.auth.userProfile
+    authenticated: state.auth.userProfile,
+    email: state.form.email,
+    password: state.form.password
 });
 
 export default connect(mapStateToProps)(LoginContainer);

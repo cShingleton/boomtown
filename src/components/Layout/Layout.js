@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+
 import HeaderBar from '../HeaderBar';
 import Footer from '../Footer';
 import './styles.css';
 
-// TODO: change window.location to use React Router
 const Layout = ({ children, pathname }) => (
     <div className="appContentWrapper">
         <div className="appHeader">
@@ -15,10 +18,17 @@ const Layout = ({ children, pathname }) => (
         </div>
         <div className="appContent">
             {children}
+            <Link to={'/share'}>
+                <FloatingActionButton className="shareButton" secondary>
+                    <ContentAdd />
+                </FloatingActionButton>
+            </Link>
         </div>
+        <footer className="appFooter">
         {(pathname === '/login' || pathname === '/login/') ?
                  null : <Footer />
             }
+        </footer>
     </div>
 );
 
