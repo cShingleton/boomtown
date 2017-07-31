@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import SignUpForm from './SignUpForm';
 import { FireBaseAuth } from '../../config/firebase';
 import { showSignUpModal } from '../../redux/modules/auth';
-
 import {
     captureTitleInput,
     captureDescriptionInput
@@ -27,7 +28,7 @@ class SignUpFormContainer extends Component {
                 bio: this.props.bio,
                 password: this.props.password
             }
-        }).then(({ data }) => {
+        }).then(() => {
             this.login({ email: this.props.email, password: this.props.password });
         }).catch(error => {
             console.log(error);
@@ -78,3 +79,12 @@ const mapStateToProps = state => ({
 
 const SignUpFormWithData = graphql(addUser);
 export default connect(mapStateToProps)(SignUpFormWithData(SignUpFormContainer));
+
+SignUpFormContainer.propTypes = {
+    showJoinModal: PropTypes.bool.isRequired,
+    bio: PropTypes.string.isRequired,
+    fullname: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    mutate: PropTypes.func.isRequired
+};

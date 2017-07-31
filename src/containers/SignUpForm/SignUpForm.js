@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import PropTypes from 'prop-types';
+
 import ValidatedTextField from '../../components/ValidatedTextField';
 
 const SignUpForm = ({
@@ -12,8 +14,7 @@ const SignUpForm = ({
         signUp,
         captureTitle,
         captureDescription
-    }) => {
-    return (
+    }) => (
         <form onSubmit={(e) => signUp(e)}>
             <Dialog
                 title="No Account With This Email"
@@ -47,7 +48,15 @@ const SignUpForm = ({
                 />
             </Dialog>
         </form>
-    );
-};
+);
 
 export default connect()(SignUpForm);
+
+SignUpForm.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    captureDescription: PropTypes.func.isRequired,
+    captureTitle: PropTypes.func.isRequired,
+    signUp: PropTypes.func.isRequired,
+    handleClose: PropTypes.func.isRequired,
+    openModal: PropTypes.func.isRequired
+};

@@ -39,8 +39,8 @@ class ShareContainer extends Component {
                 });
     }
 
-    tagToIdConverter = (tags) => {
-        const mappedTags = tags.map(tag => {
+    tagToIdConverter = tags => (
+        tags.map(tag => {
             switch (tag) {
             case 'Household Items':
                 return { id: 1 };
@@ -57,12 +57,10 @@ class ShareContainer extends Component {
             case 'Electronics':
                 return { id: 7 };
             default:
-                console.log('Wat?');
-                break;
+                return false;
             }
-        });
-        return mappedTags;
-    };
+        })
+    );
 
     handleSubmit = () => {
         const tags = this.tagToIdConverter(this.props.formData.tags);
