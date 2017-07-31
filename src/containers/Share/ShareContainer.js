@@ -1,39 +1,58 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { graphql } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { FireBaseStorage, FireBaseAuth } from '../../config/firebase';
-import { captureTitleInput, captureDescriptionInput, selectItemTags } from '../../redux/modules/share';
+import { fetchItems } from '../Items/ItemsContainer';
+import {
+    captureTitleInput,
+    captureDescriptionInput,
+    selectItemTags,
+    imageUploadProgress,
+    setItemImageUrl,
+    stepForward
+} from '../../redux/modules/share';
 import ShareForm from './ShareForm';
 import ShareCard from './ShareCard';
 import Loader from '../../components/Loader/';
 import './styles.css';
 
 class ShareContainer extends Component {
+    
+    selectImage = fileInput => {
+        this.fileInput = this.fileInput || fileInput;
+        this.fileInput.click();
+    }
 
-//     selectImage = fileInput => {
-//         this.fileInput = this.fileInput || fileInput;
-//         this.fileInput.click();
-//     }
-//     
+    handleImageUpload = () => {
+        const cloud = FireBaseStorage.ref();
+        const userId = FireBaseAuth.currentUser.uid;
+        const fileName = this.fileInput.files[0].name;
+        // ADD LATER IF TIME : this.props.dispatch(imageUploadProgress());
+        cloud.child(`images/${userId}/${fileName}`)
+                .put(this.fileInput.files[0])
+                .then(result => {
+                    this.props.dispatch(setItemImageUrl(result.metadata.downloadURLs[0]));
+                    this.props.dispatch(stepForward(0));
+                });
+    }
 
-//     handleImageUpload = () => {
-//         const cloud = FireBaseStorage.ref();
-//         const userId = FireBaseAuth.currentUser.uid;
-//         const fileName = this.fileInput.files[0].name;
-//         //this.props.dispatch(startImageUpload());
-//         cloud.child(`images/${userId}/${fileName}`)
-//                 .put(this.fileInput.files[0])
-//                 .then(result => {
-//                     //this.props.dispatch(setItemImageUrl(result.metadata.downloadUrls[0]));
-//                     this.handleNext();
-//                 });
-//     }
-
-    //handleSubmit = () => {
-//         console.log('Submit handled!');
-//     }
+    handleSubmit = () => {
+        console.log('Submit handled!');
+        let tags2 = this.props.formData.tags;
+        let tags = {
+            tags2
+        };
+        this.props.saveItem(
+            this.props.formData.title,
+            this.props.formData.imageurl,
+            this.props.authenticated,
+            this.props.formData.description,
+            tags
+        );
+    }
 
     render() {
         if (this.props.data.loading) return <Loader />;
@@ -48,11 +67,43 @@ class ShareContainer extends Component {
                     captureDescription={captureDescriptionInput}
                     selectValues={this.props.formData.tags}
                     selectItemTags={selectItemTags}
+                    selectImage={this.selectImage}
+                    handleImageUpload={this.handleImageUpload}
+                    handleSubmit={this.handleSubmit}
                 />
             </div>
         );
     }
 }
+
+const submitItem = gql`
+  mutation addItem(
+      $title: String!
+      $description: String!
+      $imageurl: String!
+      $tags: [AssignedTag]!
+      $itemowner: ID!
+  ) {
+      addItem(
+        title: $title
+        description: $description
+        imageurl: $imageurl
+        tags: $tags
+        itemowner: $itemowner
+    ) {
+        title
+        description
+        imageurl
+        tags {
+            title 
+            id
+        }
+        itemowner {
+            id 
+            fullname
+        }
+    }
+}`;
 
 const fetchUser = gql`
     query fetchUser($id: ID!) {
@@ -70,17 +121,29 @@ const mapStateToProps = (state) => ({
     authenticated: state.auth.userProfile
 });
 
-const ShareFormWithData = graphql(fetchUser, {
-    options: ownProps => ({
-        variables: {
-            id: ownProps.authenticated
-        }
+const ShareFormWithData = compose(
+    graphql(fetchUser, {
+        options: ownProps => ({
+            variables: {
+                id: ownProps.authenticated
+            }
+        })
+    }),
+    graphql(submitItem, {
+        props: ({ mutate }) => ({
+            saveItem: (title, imageurl, itemowner, description, tags) => mutate({
+                variables: { title, imageurl, itemowner, description, tags }
+            })
+        }),
+        options: () => ({
+            refetchQueries: [
+                { query: fetchItems }
+            ]
+        })
     })
-});
+);
 
 export default connect(mapStateToProps)(ShareFormWithData(ShareContainer));
-
-// handleImageUpload={this.handleImageUpload} selectImage={this.selectImage} -- share component props
 
 // const ShareItemForm = reduxForm({
 //     form: 'ShareItemForm',
@@ -102,53 +165,3 @@ export default connect(mapStateToProps)(ShareFormWithData(ShareContainer));
 
 // export default connect(mapStateToProps)(withRouter(ShareItemFormWIthData));
 
-
-// /**
-//  * A basic vertical non-linear implementation
-//  */
-// class VerticalNonLinear extends React.Component {
-
-//   state = {
-//     loading: false,
-//     finished: false,
-//     stepIndex: 0,
-//   };
-
-//   dummyAsync = (cb) => {
-//     this.setState({loading: true}, () => {
-//       this.asyncTimer = setTimeout(cb, 500);
-//     });
-//   };
-
-
-
-//   handleNext = () => {
-//     const {stepIndex} = this.state;
-//     if (!this.state.loading) {
-//       this.dummyAsync(() => this.setState({
-//         loading: false,
-//         stepIndex: stepIndex + 1,
-//         finished: stepIndex >= 2,
-//       }));
-//     }
-//   };
-
-//   handlePrev = () => {
-//     const {stepIndex} = this.state;
-//     if (stepIndex > 0) {
-//       this.setState({stepIndex: stepIndex - 1});
-//     }
-//   };
-
-//handlePrev = () => {
-//     const {stepIndex} = this.state;
-//     if (!this.state.loading) {
-//       this.dummyAsync(() => this.setState({
-//         loading: false,
-//         stepIndex: stepIndex - 1,
-//       }));
-//     }
-//   };
-
-
-// export default VerticalNonLinear;

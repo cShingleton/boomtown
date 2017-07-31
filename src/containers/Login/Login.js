@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
 
 import ValidatedTextField from '../../components/ValidatedTextField';
@@ -48,12 +49,14 @@ const Login = ({
                                 onChangeAction={(e) => dispatch(capturePassword(e.target.value))}
                             />
                         </div>
-                        <RaisedButton className="enterButton" primary type="submit">
-                            Enter
-                        </RaisedButton>
-                        <RaisedButton className="enterButton" secondary onTouchTap={() => dispatch(handleOpen(true))}>
-                            Sign Up
-                        </RaisedButton>
+                        <div style={{margin: '12px 0', width: '100%', textAlign: 'center' }}>
+                            <RaisedButton primary type="submit" style={{marginRight: '12px'}}>
+                                Enter
+                            </RaisedButton>
+                            <FlatButton onTouchTap={() => dispatch(handleOpen(true))}>
+                                Sign Up
+                            </FlatButton>
+                        </div>
                     </form>
                 </div>
             </Paper>

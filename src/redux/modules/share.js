@@ -4,12 +4,13 @@ const STEP_BACKWARD = 'STEP_BACKWARD';
 const TITLE_KEY_PRESS = 'TITLE_KEY_PRESS';
 const DESCRIPTION_KEY_PRESS = 'DESCRIPTION_KEY_PRESS';
 const SELECT_ITEM_TAGS = 'SELECT_ITEM_TAGS';
+const UPLOAD_IMAGE_PROGRESS = 'UPLOAD_IMAGE_PROGRESS';
+const SET_IMAGE_URL = 'SET_IMAGE_URL';
 
 const initialState = {
     step: {
         finished: false,
         stepIndex: 0
-        // loading
     },
     form: {
         imageurl: '',
@@ -55,6 +56,20 @@ export function selectItemTags(tags) {
     };
 }
 
+export function imageUploadProgress() {
+    return {
+        type: UPLOAD_IMAGE_PROGRESS,
+        payload: true
+    };
+}
+
+export function setItemImageUrl(url) {
+    return {
+        type: SET_IMAGE_URL,
+        payload: url
+    };
+}
+
 
 // REDUCERS
 
@@ -92,6 +107,11 @@ export function FormReducer(state = initialState, action) {
             ...state,
             tags: action.payload
         };
+    case SET_IMAGE_URL:
+        return {
+            ...state,
+            imageurl: action.payload
+        };
     default:
         return state;
     }
@@ -108,6 +128,7 @@ export function ShareFormReducer(state = initialState, action) {
     case TITLE_KEY_PRESS:
     case DESCRIPTION_KEY_PRESS:
     case SELECT_ITEM_TAGS:
+    case SET_IMAGE_URL:
         return {
             ...state,
             form: FormReducer(state.form, action)

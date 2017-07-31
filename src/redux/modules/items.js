@@ -1,18 +1,27 @@
-const RENDER_DATA_AS_ITEMS = 'RENDER_DATA_AS_ITEMS';
+// const RENDER_DATA_AS_ITEMS = 'RENDER_DATA_AS_ITEMS';
 const FILTER_ITEMS_BY_TAG = 'FILTER_ITEMS_BY_TAG';
+const SHOW_BORROW_MODAL = 'SHOW_BORROW_MODAL';
 
 const initialState = {
     loading: true,
     // itemsData: [],
     specificUserItems: [],
-    itemFilters: []
+    itemFilters: [],
+    borrowModalDisplayed: false
 };
 
 
-export function renderDataAsItems(allItems, specificUserItems) {
+// export function renderDataAsItems(allItems, specificUserItems) {
+//     return {
+//         type: RENDER_DATA_AS_ITEMS,
+//         payload: { allItems, specificUserItems }
+//     };
+// }
+
+export function showBorrowModal(value) {
     return {
-        type: RENDER_DATA_AS_ITEMS,
-        payload: { allItems, specificUserItems }
+        type: SHOW_BORROW_MODAL,
+        payload: value
     };
 }
 
@@ -25,10 +34,12 @@ export function updateItemsFilter(filters) {
 
 export function ItemReducer(state = initialState, action) {
     switch (action.type) {
-    case RENDER_DATA_AS_ITEMS:
-        return { ...state, specificUserItems: action.payload.specificUserItems, itemsData: action.payload.allItems };
+    // case RENDER_DATA_AS_ITEMS:
+    //     return { ...state, specificUserItems: action.payload.specificUserItems, itemsData: action.payload.allItems };
     case FILTER_ITEMS_BY_TAG:
         return { ...state, itemFilters: action.payload };
+    case SHOW_BORROW_MODAL:
+        return { ...state, borrowModalDisplayed: action.payload };
     default:
         return state;
     }

@@ -11,20 +11,20 @@ class SignUpFormContainer extends Component {
         .catch(error => console.log(error));
     }
 
-    signUpUser(event) {
-        event.preventDefault();
-        this.props.mutate({
-            variables: {
-                fullname: 'Dan',
-                email: 'dan@gmail.com',
-                bio: 'I like stuff',
-                password: 'password'
-            }
-        }).then(({ data }) => {
-            this.login({ email: 'test@gmail.com', password: 'password' });
-        }).catch(error => {
-            console.log(error);
-        });
+    // signUpUser(event) {
+    //     event.preventDefault();
+    //     this.props.mutate({
+    //         variables: {
+    //             fullname: 'Dan',
+    //             email: 'dan@gmail.com',
+    //             bio: 'I like stuff',
+    //             password: 'password'
+    //         }
+    //     }).then(({ data }) => {
+    //         this.login({ email: 'test@gmail.com', password: 'password' });
+    //     }).catch(error => {
+    //         console.log(error);
+    //     });
     }
 
     render() {

@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import Items from './Items';
 import Loader from '../../components/Loader';
+import BorrowModal from '../Borrow';
 // import { fetchAndRenderItems } from '../../redux/modules/items';
 
 class ItemsContainer extends Component {
@@ -27,12 +28,18 @@ class ItemsContainer extends Component {
         const loading = this.props.data.loading;
         if (loading) return <Loader />;
         const filteredItemsData = this.filterItemsByTags();
-        return <Items itemsData={filteredItemsData} />;
+        return (
+            <Items itemsData={filteredItemsData}>
+                {(this.props.showBorrowModal) ?
+                    <BorrowModal />
+                    : null}
+            </Items>
+        );
     }
 }
 
 // fix the created time stamp because Int cannot accept signed 32 input signed
-const fetchItems = gql`
+export const fetchItems = gql`
     query fetchItems {
          items {
             available
@@ -60,7 +67,8 @@ function mapStateFromProps(state) {
     return {
         // loading: state.items.loading,
         // itemsData: state.items.itemsData,
-        itemFilters: state.items.itemFilters
+        itemFilters: state.items.itemFilters,
+        showBorrowModal: state.items.borrowModalDisplayed
     };
 }
 

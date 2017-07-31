@@ -6,12 +6,13 @@ import { connect } from 'react-redux';
 import ItemCard from '../ItemCard/';
 import './styles.css';
 
-const ItemCardList = ({ itemsData }) => (
+const ItemCardList = ({ itemsData, children }) => (
     <div className="itemCardList-wrapper">
         <Masonry>
             {itemsData.map(item =>
                 (<ItemCard itemData={item} key={item.id} />)
             )}
+            {children}
         </Masonry>
     </div>
 );

@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 import ItemCardList from '../../components/ItemCardList/';
 
-const Items = ({ itemsData }) => (
-    <ItemCardList itemsData={itemsData} />
+const Items = ({ itemsData, children }) => (
+    <ItemCardList itemsData={itemsData}>
+        {children}
+    </ItemCardList>
 );
 
 export default Items;

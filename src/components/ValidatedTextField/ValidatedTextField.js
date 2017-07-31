@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 
-import { blueGrey900 } from 'material-ui/styles/colors';
+import { blueGrey900, white } from 'material-ui/styles/colors';
 
 const styles = {
     fieldStyle: {
@@ -15,6 +15,9 @@ const styles = {
     },
     underlineStyle: {
         borderColor: blueGrey900
+    },
+    floatingLabelFocusStyle: {
+        color: white
     }
 };
 
@@ -23,6 +26,7 @@ const ValidatedTextField = ({ label, type, onChangeAction }) => (
         style={styles.fieldStyle}
         hintText={label}
         floatingLabelText={label}
+        floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
         errorStyle={styles.errorStyle}
         underlineFocusStyle={styles.underlineStyle}
         type={type}

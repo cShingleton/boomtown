@@ -7,28 +7,22 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { showBorrowModal } from '../../redux/modules/items';
 import './styles.css';
 
-const checkBorrower = ({ itemData }) => {
-    let status = '';
-    const simulID = 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2'; // Simulated user - Mandi
-    if (itemData.borrower) {
-        if (itemData.itemowner.id === simulID) {
-            const borrower = itemData.borrower.fullname;
-            status = `LENT TO ${borrower.toUpperCase()}`;
-        } else {
-            status = 'UNAVAILABLE';
-        }
-    }
-    return status;
-};
-
-const ItemCard = ({ itemData }) => (
+const ItemCard = ({ itemData, userProfile, dispatch }) => (
     <div className="item-card-wrapper">
         <Card>
             <CardMedia
                 overlay={
-                    (!itemData.available) ? <CardTitle subtitle={checkBorrower({ itemData })} /> : null
+                    (itemData.borrower) ?
+                        <CardTitle subtitle={
+                            (itemData.itemowner.id === userProfile) ?
+                                `LENT TO ${itemData.borrower.fullname.toUpperCase()}`
+                                : 'UNAVAILABLE'
+                        }
+                        />
+                    : null
                 }
             >
                 <img src={itemData.imageurl} alt="" />
@@ -49,13 +43,20 @@ const ItemCard = ({ itemData }) => (
                 {itemData.description}
             </CardText>
             {(itemData.available) ? <CardActions>
-                <FlatButton label="Borrow" />
+                <FlatButton
+                    label="Borrow"
+                    onTouchTap={() => dispatch(showBorrowModal(true))}
+                />
             </CardActions> : null}
         </Card>
     </div>
 );
 
-export default connect()(ItemCard);
+const mapStateToProps = state => ({
+    userProfile: state.auth.userProfile
+});
+
+export default connect(mapStateToProps)(ItemCard);
 
 ItemCard.propTypes = {
     itemData: PropTypes.shape({
