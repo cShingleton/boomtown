@@ -11,7 +11,7 @@ This projecct is an object sharing webapp with user profile functionality. Users
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). On top of React it uses Redux to manage global state and Apollo React to manage graphQL which queries the accompanying server.
 
 ## Project Installation
-You can run this project by running, in this order:
+You can run this project by running the following commands. The commands should be run within the root of the boomtown directory. 
  - npm install : to download all required packages
  - npm run dev : to open the project in your default browser locally on port 3000
  
