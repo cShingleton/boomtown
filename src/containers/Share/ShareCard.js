@@ -28,7 +28,7 @@ const ShareCard = ({ cardData, userData }) => (
             </Link>
             <CardTitle
                 title={(!cardData.title) ? 'Amazing Item Title' : cardData.title}
-                //subtitle={cardData.tags.join(', ')}
+                subtitle={cardData.tags.join(', ')}
             />
             <CardText>
                 {(!cardData.description) ? 'Profound Item Description' : cardData.description}

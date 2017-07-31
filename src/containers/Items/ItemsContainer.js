@@ -81,7 +81,7 @@ ItemsContainer.propTypes = {
         items: PropTypes.arrayOf(PropTypes.shape({
             available: PropTypes.bool.isRequired,
             borrower: PropTypes.objectOf(PropTypes.string),
-            created: PropTypes.number.isRequired,
+            created: PropTypes.string.isRequired,
             description: PropTypes.string.isRequired,
             id: PropTypes.number.isRequired,
             imageurl: PropTypes.string.isRequired,
@@ -90,9 +90,10 @@ ItemsContainer.propTypes = {
                 fullname: PropTypes.string.isRequired,
                 email: PropTypes.string.isRequired
             }).isRequired,
-            tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+            tags: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
             title: PropTypes.string.isRequired
         }))
     }).isRequired,
-    itemFilters: PropTypes.arrayOf(PropTypes.string).isRequired
+    itemFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
+    showBorrowModal: PropTypes.bool.isRequired
 };

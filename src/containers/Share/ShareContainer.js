@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 
 import { FireBaseStorage, FireBaseAuth } from '../../config/firebase';
 import { fetchItems } from '../Items/ItemsContainer';
@@ -10,7 +10,7 @@ import {
     captureTitleInput,
     captureDescriptionInput,
     selectItemTags,
-    imageUploadProgress,
+    // imageUploadProgress,
     setItemImageUrl,
     stepForward
 } from '../../redux/modules/share';
@@ -20,7 +20,7 @@ import Loader from '../../components/Loader/';
 import './styles.css';
 
 class ShareContainer extends Component {
-    
+
     selectImage = fileInput => {
         this.fileInput = this.fileInput || fileInput;
         this.fileInput.click();
@@ -39,12 +39,33 @@ class ShareContainer extends Component {
                 });
     }
 
+    tagToIdConverter = (tags) => {
+        const mappedTags = tags.map(tag => {
+            switch (tag) {
+            case 'Household Items':
+                return { id: 1 };
+            case 'Recreational Equipment':
+                return { id: 2 };
+            case 'Musical Instruments':
+                return { id: 3 };
+            case 'Sporting Goods':
+                return { id: 4 };
+            case 'Physical Media':
+                return { id: 5 };
+            case 'Tools':
+                return { id: 6 };
+            case 'Electronics':
+                return { id: 7 };
+            default:
+                console.log('Wat?');
+                break;
+            }
+        });
+        return mappedTags;
+    };
+
     handleSubmit = () => {
-        console.log('Submit handled!');
-        let tags2 = this.props.formData.tags;
-        let tags = {
-            tags2
-        };
+        const tags = this.tagToIdConverter(this.props.formData.tags);
         this.props.saveItem(
             this.props.formData.title,
             this.props.formData.imageurl,
@@ -145,23 +166,18 @@ const ShareFormWithData = compose(
 
 export default connect(mapStateToProps)(ShareFormWithData(ShareContainer));
 
-// const ShareItemForm = reduxForm({
-//     form: 'ShareItemForm',
-//     validate
-// })(ShareContainer);
-
-// const ShareItemFormWIthData = graphql(submitItemMutation, {
-//     props: ({ mutate }) => ({
-//         saveNewItem: (title, imageurl, itemowner, descripton, tags) => mutate({
-//             varailbes: { title, imageurl, itemowner, descripton, tags }
-//         })
-//     }),
-//     options: () => ({
-//         refetchQueries: [
-//             { query: itemsQuery}
-//         ]
-//     })
-// })(ShareItemForm);
-
-// export default connect(mapStateToProps)(withRouter(ShareItemFormWIthData));
-
+ShareContainer.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    authenticated: PropTypes.string.isRequired,
+    formData: PropTypes.shape({
+        imageurl: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        tags: PropTypes.arrayOf(PropTypes.string).isRequired
+    }).isRequired,
+    data: PropTypes.shape({
+        loading: PropTypes.bool.isRequired,
+        user: PropTypes.objectOf(PropTypes.string).isRequired
+    }).isRequired,
+    saveItem: PropTypes.func.isRequired
+};

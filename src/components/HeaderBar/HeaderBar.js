@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { AppBar, RaisedButton } from 'material-ui';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import { FireBaseAuth } from '../../config/firebase';
 import logo from '../../images/boomtown-logo.svg';
 import FilterField from '../../containers/FilterField';
@@ -59,5 +60,6 @@ export default connect(mapStateFromProps)(HeaderBar);
 
 HeaderBar.propTypes = {
     itemFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
-    pathname: PropTypes.string.isRequired
+    pathname: PropTypes.string.isRequired,
+    userProfile: PropTypes.string.isRequired
 };

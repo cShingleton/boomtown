@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import { FireBaseAuth } from '../../config/firebase'; // FireBaseDB
 import { showLoginError, showSignUpModal } from '../../redux/modules/auth';
 import { captureEmailInput, capturePasswordInput } from '../../redux/modules/forms';
 import Login from './Login';
-import SignUpForm from '../SignUpForm/SignUpForm';
+import SignUpForm from '../SignUpForm';
 
 class LoginContainer extends Component {
 
@@ -13,8 +15,6 @@ class LoginContainer extends Component {
     Login = ({ email, password }) => {
         FireBaseAuth.signInWithEmailAndPassword(email, password)
         .catch((error) => {
-            // this tells us that the login failed - the user was not found
-            // could augment this with more specific errors -- check the firebase docs
             if (error.code === 'auth/user-not-found') {
                 this.props.dispatch(showSignUpModal(true));
             } else {
@@ -28,7 +28,6 @@ class LoginContainer extends Component {
     //     FireBaseAuth.createUserWithEmailAndPassword(email, password)
     //     .catch(error => {
     //         // Handle Errors here.
-            
     //     });
     // };
 
@@ -50,10 +49,7 @@ class LoginContainer extends Component {
                 capturePassword={capturePasswordInput}
             >
                 {(this.props.showJoinModal) ?
-                    <SignUpForm
-                        openModal={this.props.showJoinModal}
-                        handleClose={showSignUpModal}
-                    />
+                    <SignUpForm />
                 : null}
             </Login>
         );
@@ -68,3 +64,12 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(LoginContainer);
+
+LoginContainer.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    authenticated: PropTypes.string.isRequired,
+    location: PropTypes.objectOf(PropTypes.string).isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    showJoinModal: PropTypes.bool.isRequired
+};

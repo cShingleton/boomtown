@@ -1,5 +1,5 @@
 import ApolloClient, { createNetworkInterface } from 'react-apollo';
-import { applyMiddleware } from 'apollo-client';
+// import { applyMiddleware } from 'apollo-client';
 import { FireBaseAuth } from './firebase';
 
 const networkInterface = createNetworkInterface({
@@ -11,9 +11,13 @@ networkInterface.use([{
         if (!req.options.headers) {
             req.options.headers = {};
         }
-        const token = await FireBaseAuth.currentUser.getIdToken(true);
-        req.options.headers['Authorization'] = token;
-        next();
+        if (req.request.operationName === 'addUser') {
+            next();
+        } else {
+            const token = await FireBaseAuth.currentUser.getIdToken(true);
+            req.options.headers.Authorization = token;
+            next();
+        }
     }
 }]);
 

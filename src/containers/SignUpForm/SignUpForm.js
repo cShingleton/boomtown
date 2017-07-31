@@ -3,21 +3,18 @@ import { connect } from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import { black, blue500 } from 'material-ui/styles/colors';
+import ValidatedTextField from '../../components/ValidatedTextField';
 
-const styles = {
-    errorStyle: {
-        color: black
-    },
-    floatingLabelStyle: {
-        color: blue500
-    }
-};
-
-const SignUpForm = ({ handleClose, dispatch, openModal }) => {
+const SignUpForm = ({
+        handleClose,
+        dispatch,
+        openModal,
+        signUp,
+        captureTitle,
+        captureDescription
+    }) => {
     return (
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(e) => signUp(e)}>
             <Dialog
                 title="No Account With This Email"
                 actions={[
@@ -29,8 +26,7 @@ const SignUpForm = ({ handleClose, dispatch, openModal }) => {
                     <RaisedButton
                         label="Join!"
                         primary
-                        disabled
-                        onTouchTap={() => dispatch(handleClose(false))}
+                        onTouchTap={(e) => signUp(e)}
                     />
                 ]}
                 modal
@@ -39,21 +35,15 @@ const SignUpForm = ({ handleClose, dispatch, openModal }) => {
             The email you provided is not registered. Would you like to use it
             to join and start sharing with everyone?
             <br />
-                <TextField
-                    hintText="Your Name"
-                    errorText="This field is required"
-                    errorStyle={styles.errorStyle}
-                    floatingLabelText="Your Name"
-                    floatingLabelFocusStyle={styles.floatingLabelStyle}
+                <ValidatedTextField
+                    label="Your Name"
+                    type="input"
+                    onChangeAction={(e) => dispatch(captureTitle(e.target.value))}
                 /><br />
-                <TextField
-                    hintText="Tell Us About Yourself!"
-                    errorText="This Field is Required"
-                    errorStyle={styles.errorStyle}
-                    floatingLabelText="Tell Us About Yourself!"
-                    floatingLabelFocusStyle={styles.floatingLabelStyle}
-                    multiline
-                    rows={3}
+                <ValidatedTextField
+                    label="Tell Us About Yourself!"
+                    type="input"
+                    onChangeAction={(e) => dispatch(captureDescription(e.target.value))}
                 />
             </Dialog>
         </form>

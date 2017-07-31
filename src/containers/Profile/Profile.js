@@ -47,7 +47,7 @@ const Profile = ({ userData, authenticated }) => (
                 />
             </div>
             <div className="profile-img-holder">
-                <Gravatar email={userData.email} className="profile-avatar" size={180} /> 
+                <Gravatar email={userData.email} className="profile-avatar" size={180} />
             </div>
         </Card>
     </div>
@@ -67,7 +67,7 @@ Profile.propTypes = {
         items: PropTypes.arrayOf(PropTypes.shape({
             available: PropTypes.bool.isRequired,
             borrower: PropTypes.objectOf(PropTypes.string),
-            created: PropTypes.number.isRequired,
+            created: PropTypes.string.isRequired,
             description: PropTypes.string.isRequired,
             id: PropTypes.number.isRequired,
             imageurl: PropTypes.string.isRequired,
@@ -76,7 +76,7 @@ Profile.propTypes = {
                 fullname: PropTypes.string.isRequired,
                 email: PropTypes.string.isRequired
             }).isRequired,
-            tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+            tags: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
             title: PropTypes.string.isRequired
         })),
         borrowed: PropTypes.arrayOf(PropTypes.shape({
